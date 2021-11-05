@@ -1,0 +1,60 @@
+@use "mixins";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  min-height: 100vh;
+  transition: background-color .2s ease-in-out;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  max-width: 500px;
+}
+
+ul {
+  list-style: none;
+}
+
+h1, h2, h3, h4, p, ul, li, a {
+  margin: 0;
+  padding: 0;
+}
+
+.spacer {
+  margin: 50px 0;
+}
+
+.html--darkmode {
+  background-color: #262626;
+
+  h1, h2, h3, h4, p, li, span, td {
+    color: #ffffff;
+  }
+  .content__task table td {
+    border-color: #ffffff;
+  }
+
+  .content__task .desc {
+    color: #ababff;
+  }
+
+  audio {
+    background-color: lightgray;
+  }
+}
+
+h1, h2, h3, h4, p, li, span, td {
+  transition: color .2s ease-in-out;
+}
+
+td {
+  transition: border-color .2s ease-in-out;
+}

@@ -1,0 +1,38 @@
+ $sans-serif-font: 'europa';
+$fallback-font: sans-serif;
+$basic-font-size: 1rem;
+
+:root {
+  font-family: $sans-serif-font, $fallback-font;
+  font-size: $basic-font-size;
+  --mainColor: #b69e56;
+  --mainColorHover: #dabd66;
+  --mainColortranslucent: rgba(195, 169, 89, 0.92);
+  --superLight: #fae5c8;
+  --link-color: #000;
+}
+
+ h1 {
+   font-size: 2.75rem;
+ }
+ h2 {
+   font-size: 1.75rem;
+ }
+ h3 {
+   font-size: 1.4rem;
+   font-weight: 300;
+ }
+ .main-title {
+   padding-top: 70px;
+ }
+ #top {
+   margin-bottom: -20px;
+ }
+h4 {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+ p {
+   font-size: 1.1rem;
+ }
