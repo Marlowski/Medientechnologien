@@ -49,6 +49,9 @@ h1, h2, h3, h4, p, ul, li, a {
   audio {
     background-color: lightgray;
   }
+  .content__task .small-list li.marked {
+    color: #ababff;
+  }
 }
 
 h1, h2, h3, h4, p, li, span, td {

@@ -46,6 +46,9 @@ h1, h2, h3, h4, p, ul, li, a {
 .html--darkmode audio {
   background-color: lightgray;
 }
+.html--darkmode .content__task .small-list li.marked {
+  color: #ababff;
+}
 
 h1, h2, h3, h4, p, li, span, td {
   transition: color 0.2s ease-in-out;
@@ -208,7 +211,7 @@ nav.navbar a:hover {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
 }
 .content__task .flex-block > div {
   margin: 10px 0;
@@ -220,6 +223,16 @@ nav.navbar a:hover {
 .content__task .flex-block img {
   max-width: 45vw;
   min-width: 500px;
+}
+.content__task .flex-block.triple > div {
+  flex: 1 1 10em;
+}
+.content__task .flex-block.triple > div img {
+  max-width: 30vw;
+  min-width: 250px;
+}
+.content__task .flex-block.triple div:nth-of-type(1), .content__task .flex-block.triple div:first-of-type {
+  margin-right: 10px;
 }
 .content__task table {
   border-collapse: collapse;
@@ -265,15 +278,16 @@ nav.navbar a:hover {
   content: "-";
   margin: 0 10px;
 }
+.content__task .small-list li {
+  font-size: 0.8rem;
+}
+.content__task .small-list li.marked {
+  color: #4b4bef;
+}
 
 :root {
   font-family: "europa", sans-serif;
   font-size: 1rem;
-  --mainColor: #b69e56;
-  --mainColorHover: #dabd66;
-  --mainColortranslucent: rgba(195, 169, 89, 0.92);
-  --superLight: #fae5c8;
-  --link-color: #000;
 }
 
 h1 {

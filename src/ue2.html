@@ -6,6 +6,8 @@
     <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
     <link href="style/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/jby6hqc.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script/script.js"></script>
     <title>Medientechnologien WiSe 21/22</title>
 </head>
 
@@ -16,31 +18,489 @@
          folgenden.</p>
 </iframe>
 
-<h2>Uebung 2</h2>
-<br><h3>Aufgabe 1 - 1.1</h3>
-<table><tr>
-<td><img src="./pics/Koala.jpg" alt="Koalabaer auf dem Baum" width="350" height="300"></td>
-<td><img src="./pics/Penguins.jpg" alt="Penguins auf dem Eis" width="350" height="300"></td>
-</tr></table>
-<p>Bescheibung</p>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 1 - 1.2</h3>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 2 - 2.1</h3>
-<img src="./pics/stadt.png" alt="Marsch &uuml;ber die Stra&szlig;e" width="450" height="300">
-<p>Bescheibung</p>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 2 - 2.2</h3>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 2 - 2.3</h3>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 3 - 3.1</h3>
-<p>Loesung</p>
-
+<nav class="navbar">
+    <div>
+        <a href="#top">Anfang</a>
+        <a href="#af1">Aufgabe 1</a>
+        <a href="#af2">Aufgabe 2</a>
+        <a href="#af3">Aufgabe 3</a>
+    </div>
+    <div>
+        <p>Darkmode</p>
+        <label class="switch">
+            <input type="checkbox">
+            <span></span>
+        </label>
+    </div>
+</nav>
+<div class="content__task">
+    <h1 id="top">Übung 2</h1>
+    <div class="task-block">
+        <h3 id="af1" class="main-title">Aufgabe 1</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">Nun lies die Bilder mit bmp_io ein und erkläre die Angaben im Header, die auf der Konsole ausgegeben werden! Wie erklärt sich die Dateigröße für die beiden Dateien?</p>
+            <p><b>Bits pro Pixel</b> gibt an, wie viel Speicher für ein Pixel zu verfügung gestellt wird, also wie genau der Farbton gespeichert werden kann. Hier: 24 Pixel bzw. 8-bit für je ein {R,G,B} Wert<br/>
+                <b>Breite x Höhe:</b> Format des Bildes, wie viel Pixel in der jeweiligen Achse existieren.<br/>
+                <b>Dateigröße:</b> Die Dateigröße lässt sich mit 640*480*3 = 921.600 Berechnen (in Bytes). Die Angabe im Header beträgt 921.654, was darauf schließen lässt, dass 54 Bytes für sonstige Informationen,
+                wie Metadaten verwendet wird.</p>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af2" class="main-title">Aufgabe 2</h3>
+        <div class="task-block__single">
+            <h4>2.1.)</h4>
+            <p class="desc">Modifiziere bmp_io dahingehend, dass die RGB Werte der einzelnen Pixel in der BMP-Datei in eine (lesbare) ASCII-Datei geschrieben werden. Es reichen dabei jeweils eine Zeile und eine Spalte! Lies die von mir geschickten Testdateien ein und schätze aus den resultierenden Zahlenfolgen die Periodendauer in Pixeln in horizontaler und vertikaler Richtung.</p>
+            <div class="flex-block">
+                <div>
+                    <p class="title">grating_H9.bmp</p>
+                    <img src="pics/grating_H9.bmp" alt="grating_H9">
+                    <div class="spacer"></div>
+                    <p>Wie bei den Frequenzen aus Aufgabe 1, können wir die Abtastpunkte zählen bis sich die Werte wiederholen. Hier sind das 63 Abtastpunkte. Diese werden nun durch die Anzahl der Perioden in diesem Zeitraum geteilt</p>
+                    <p>Also: 63/11 = 5.72</p>
+                    <p><b>Eine Periodendauer für die horizontale Achse im Bild grating_H9 beträgt 5.72 Pixel</b></p>
+                    <ul class="small-list">
+                        <li class="marked">R: 196, G: 196, B: 196</li>
+                        <li class="marked">R: 75, G: 75, B: 75</li>
+                        <li class="marked">R: 1, G: 1, B: 1</li>
+                        <li class="marked">R: 43, G: 43, B: 43</li>
+                        <li class="marked">R: 161, G: 161, B: 161</li>
+                        <li>R: 248, G: 248, B: 248</li>
+                        <li>R: 224, G: 224, B: 224</li>
+                        <li>R: 111, G: 111, B: 111</li>
+                        <li>R: 13, G: 13, B: 13</li>
+                        <li>R: 19, G: 19, B: 19</li>
+                        <li>R: 124, G: 124, B: 124</li>
+                        <li>R: 232, G: 232, B: 232</li>
+                        <li>R: 244, G: 244, B: 244</li>
+                        <li>R: 149, G: 149, B: 149</li>
+                        <li>R: 34, G: 34, B: 34</li>
+                        <li>R: 4, G: 4, B: 4</li>
+                        <li>R: 87, G: 87, B: 87</li>
+                        <li>R: 206, G: 206, B: 206</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 185, G: 185, B: 185</li>
+                        <li>R: 64, G: 64, B: 64</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 53, G: 53, B: 53</li>
+                        <li>R: 173, G: 173, B: 173</li>
+                        <li>R: 251, G: 251, B: 251</li>
+                        <li>R: 216, G: 216, B: 216</li>
+                        <li>R: 99, G: 99, B: 99</li>
+                        <li>R: 8, G: 8, B: 8</li>
+                        <li>R: 26, G: 26, B: 26</li>
+                        <li>R: 136, G: 136, B: 136</li>
+                        <li>R: 239, G: 239, B: 239</li>
+                        <li>R: 239, G: 239, B: 239</li>
+                        <li>R: 136, G: 136, B: 136</li>
+                        <li>R: 26, G: 26, B: 26</li>
+                        <li>R: 8, G: 8, B: 8</li>
+                        <li>R: 99, G: 99, B: 99</li>
+                        <li>R: 216, G: 216, B: 216</li>
+                        <li>R: 251, G: 251, B: 251</li>
+                        <li>R: 173, G: 173, B: 173</li>
+                        <li>R: 53, G: 53, B: 53</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 63, G: 63, B: 63</li>
+                        <li>R: 185, G: 185, B: 185</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 206, G: 206, B: 206</li>
+                        <li>R: 87, G: 87, B: 87</li>
+                        <li>R: 4, G: 4, B: 4</li>
+                        <li>R: 34, G: 34, B: 34</li>
+                        <li>R: 149, G: 149, B: 149</li>
+                        <li>R: 244, G: 244, B: 244</li>
+                        <li>R: 232, G: 232, B: 232</li>
+                        <li>R: 124, G: 124, B: 124</li>
+                        <li>R: 19, G: 19, B: 19</li>
+                        <li>R: 13, G: 13, B: 13</li>
+                        <li>R: 111, G: 111, B: 111</li>
+                        <li>R: 224, G: 224, B: 224</li>
+                        <li>R: 248, G: 248, B: 248</li>
+                        <li>R: 161, G: 161, B: 161</li>
+                        <li>R: 43, G: 43, B: 43</li>
+                        <li>R: 1, G: 1, B: 1</li>
+                        <li>R: 75, G: 75, B: 75</li>
+                        <li>R: 196, G: 196, B: 196</li>
+                        <li>R: 254, G: 254, B: 254</li>
+                    </ul>
+                </div>
+                <div>
+                    <p class="title">grating_V12.bmp</p>
+                    <img src="pics/grating_V12.bmp" alt="grating_V12">
+                    <div class="spacer"></div>
+                    <p>Ohne genau zu berechnen, lässt sich beim vertikalen auswerten für die grating_V12 Datei die Periodendauer auf 11 Pixel schätzen.</p>
+                    <ul class="small-list">
+                        <li class="marked">R: 231, G: 231, B: 231</li>
+                        <li class="marked">R: 171, G: 171, B: 171</li>
+                        <li class="marked">R: 96, G: 96, B: 96</li>
+                        <li class="marked">R: 31, G: 31, B: 31</li>
+                        <li class="marked">R: 1, G: 1, B: 1</li>
+                        <li class="marked">R: 16, G: 16, B: 16</li>
+                        <li class="marked">R: 70, G: 70, B: 70</li>
+                        <li class="marked">R: 145, G: 145, B: 145</li>
+                        <li class="marked">R: 214, G: 214, B: 214</li>
+                        <li class="marked">R: 251, G: 251, B: 251</li>
+                        <li class="marked">R: 244, G: 244, B: 244</li>
+                        <li>R: 195, G: 195, B: 195</li>
+                        <li>R: 122, G: 122, B: 122</li>
+                        <li>R: 51, G: 51, B: 51</li>
+                        <li>R: 6, G: 6, B: 6</li>
+                        <li>R: 5, G: 5, B: 5</li>
+                        <li>R: 48, G: 48, B: 48</li>
+                        <li>R: 118, G: 118, B: 118</li>
+                        <li>R: 192, G: 192, B: 192</li>
+                        <li>R: 243, G: 243, B: 243</li>
+                        <li>R: 252, G: 252, B: 252</li>
+                        <li>R: 216, G: 216, B: 216</li>
+                        <li>R: 149, G: 149, B: 149</li>
+                        <li>R: 74, G: 74, B: 74</li>
+                        <li>R: 17, G: 17, B: 17</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 28, G: 28, B: 28</li>
+                        <li>R: 92, G: 92, B: 92</li>
+                        <li>R: 168, G: 168, B: 168</li>
+                        <li>R: 229, G: 229, B: 229</li>
+                        <li>R: 254, G: 254, B: 254</li>
+                        <li>R: 233, G: 233, B: 233</li>
+                        <li>R: 175, G: 175, B: 175</li>
+                        <li>R: 99, G: 99, B: 99</li>
+                        <li>R: 34, G: 34, B: 34</li>
+                        <li>R: 1, G: 1, B: 1</li>
+                        <li>R: 14, G: 14, B: 14</li>
+                        <li>R: 67, G: 67, B: 67</li>
+                        <li>R: 141, G: 141, B: 141</li>
+                        <li>R: 211, G: 211, B: 211</li>
+                        <li>R: 250, G: 250, B: 250</li>
+                        <li>R: 246, G: 246, B: 246</li>
+                        <li>R: 199, G: 199, B: 199</li>
+                        <li>R: 126, G: 126, B: 126</li>
+                        <li>R: 54, G: 54, B: 54</li>
+                        <li>R: 8, G: 8, B: 8</li>
+                        <li>R: 4, G: 4, B: 4</li>
+                        <li>R: 45, G: 45, B: 45</li>
+                        <li>R: 114, G: 114, B: 114</li>
+                        <li>R: 189, G: 189, B: 189</li>
+                        <li>R: 241, G: 241, B: 241</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 219, G: 219, B: 219</li>
+                        <li>R: 153, G: 153, B: 153</li>
+                        <li>R: 77, G: 77, B: 77</li>
+                        <li>R: 20, G: 20, B: 20</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 26, G: 26, B: 26</li>
+                        <li>R: 88, G: 88, B: 88</li>
+                        <li>R: 164, G: 164, B: 164</li>
+                        <li>R: 227, G: 227, B: 227</li>
+                        <li>R: 254, G: 254, B: 254</li>
+                        <li>R: 236, G: 236, B: 236</li>
+                        <li>R: 178, G: 178, B: 178</li>
+                        <li>R: 103, G: 103, B: 103</li>
+                        <li>R: 36, G: 36, B: 36</li>
+                        <li>R: 2, G: 2, B: 2</li>
+                        <li>R: 12, G: 12, B: 12</li>
+                        <li>R: 64, G: 64, B: 64</li>
+                        <li>R: 138, G: 138, B: 138</li>
+                        <li>R: 208, G: 208, B: 208</li>
+                        <li>R: 249, G: 249, B: 249</li>
+                        <li>R: 247, G: 247, B: 247</li>
+                        <li>R: 202, G: 202, B: 202</li>
+                        <li>R: 130, G: 130, B: 130</li>
+                        <li>R: 57, G: 57, B: 57</li>
+                        <li>R: 9, G: 9, B: 9</li>
+                        <li>R: 3, G: 3, B: 3</li>
+                        <li>R: 42, G: 42, B: 42</li>
+                        <li>R: 111, G: 111, B: 111</li>
+                        <li>R: 185, G: 185, B: 185</li>
+                        <li>R: 239, G: 239, B: 239</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 222, G: 222, B: 222</li>
+                        <li>R: 157, G: 157, B: 157</li>
+                        <li>R: 81, G: 81, B: 81</li>
+                        <li>R: 22, G: 22, B: 22</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 24, G: 24, B: 24</li>
+                        <li>R: 84, G: 84, B: 84</li>
+                        <li>R: 160, G: 160, B: 160</li>
+                        <li>R: 224, G: 224, B: 224</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 237, G: 237, B: 237</li>
+                        <li>R: 182, G: 182, B: 182</li>
+                        <li>R: 107, G: 107, B: 107</li>
+                        <li>R: 39, G: 39, B: 39</li>
+                        <li>R: 2, G: 2, B: 2</li>
+                        <li>R: 11, G: 11, B: 11</li>
+                        <li>R: 60, G: 60, B: 60</li>
+                        <li>R: 134, G: 134, B: 134</li>
+                        <li>R: 205, G: 205, B: 205</li>
+                        <li>R: 248, G: 248, B: 248</li>
+                        <li>R: 248, G: 248, B: 248</li>
+                        <li>R: 205, G: 205, B: 205</li>
+                        <li>R: 134, G: 134, B: 134</li>
+                        <li>R: 60, G: 60, B: 60</li>
+                        <li>R: 11, G: 11, B: 11</li>
+                        <li>R: 2, G: 2, B: 2</li>
+                        <li>R: 39, G: 39, B: 39</li>
+                        <li>R: 107, G: 107, B: 107</li>
+                        <li>R: 182, G: 182, B: 182</li>
+                        <li>R: 237, G: 237, B: 237</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 224, G: 224, B: 224</li>
+                        <li>R: 160, G: 160, B: 160</li>
+                        <li>R: 84, G: 84, B: 84</li>
+                        <li>R: 24, G: 24, B: 24</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 22, G: 22, B: 22</li>
+                        <li>R: 81, G: 81, B: 81</li>
+                        <li>R: 157, G: 157, B: 157</li>
+                        <li>R: 222, G: 222, B: 222</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 239, G: 239, B: 239</li>
+                        <li>R: 185, G: 185, B: 185</li>
+                        <li>R: 111, G: 111, B: 111</li>
+                        <li>R: 42, G: 42, B: 42</li>
+                        <li>R: 3, G: 3, B: 3</li>
+                        <li>R: 9, G: 9, B: 9</li>
+                        <li>R: 57, G: 57, B: 57</li>
+                        <li>R: 130, G: 130, B: 130</li>
+                        <li>R: 202, G: 202, B: 202</li>
+                        <li>R: 247, G: 247, B: 247</li>
+                        <li>R: 249, G: 249, B: 249</li>
+                        <li>R: 208, G: 208, B: 208</li>
+                        <li>R: 138, G: 138, B: 138</li>
+                        <li>R: 63, G: 63, B: 63</li>
+                        <li>R: 12, G: 12, B: 12</li>
+                        <li>R: 2, G: 2, B: 2</li>
+                        <li>R: 36, G: 36, B: 36</li>
+                        <li>R: 103, G: 103, B: 103</li>
+                        <li>R: 178, G: 178, B: 178</li>
+                        <li>R: 236, G: 236, B: 236</li>
+                        <li>R: 254, G: 254, B: 254</li>
+                        <li>R: 227, G: 227, B: 227</li>
+                        <li>R: 164, G: 164, B: 164</li>
+                        <li>R: 88, G: 88, B: 88</li>
+                        <li>R: 26, G: 26, B: 26</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 20, G: 20, B: 20</li>
+                        <li>R: 77, G: 77, B: 77</li>
+                        <li>R: 153, G: 153, B: 153</li>
+                        <li>R: 219, G: 219, B: 219</li>
+                        <li>R: 253, G: 253, B: 253</li>
+                        <li>R: 241, G: 241, B: 241</li>
+                        <li>R: 189, G: 189, B: 189</li>
+                        <li>R: 114, G: 114, B: 114</li>
+                        <li>R: 45, G: 45, B: 45</li>
+                        <li>R: 4, G: 4, B: 4</li>
+                        <li>R: 8, G: 8, B: 8</li>
+                        <li>R: 54, G: 54, B: 54</li>
+                        <li>R: 126, G: 126, B: 126</li>
+                        <li>R: 199, G: 199, B: 199</li>
+                        <li>R: 246, G: 246, B: 246</li>
+                        <li>R: 250, G: 250, B: 250</li>
+                        <li>R: 211, G: 211, B: 211</li>
+                        <li>R: 141, G: 141, B: 141</li>
+                        <li>R: 67, G: 67, B: 67</li>
+                        <li>R: 14, G: 14, B: 14</li>
+                        <li>R: 1, G: 1, B: 1</li>
+                        <li>R: 34, G: 34, B: 34</li>
+                        <li>R: 99, G: 99, B: 99</li>
+                        <li>R: 175, G: 175, B: 175</li>
+                        <li>R: 233, G: 233, B: 233</li>
+                        <li>R: 254, G: 254, B: 254</li>
+                        <li>R: 229, G: 229, B: 229</li>
+                        <li>R: 168, G: 168, B: 168</li>
+                        <li>R: 92, G: 92, B: 92</li>
+                        <li>R: 28, G: 28, B: 28</li>
+                        <li>R: 0, G: 0, B: 0</li>
+                        <li>R: 17, G: 17, B: 17</li>
+                        <li>R: 74, G: 74, B: 74</li>
+                        <li>R: 149, G: 149, B: 149</li>
+                        <li>R: 216, G: 216, B: 216</li>
+                        <li>R: 252, G: 252, B: 252</li>
+                        <li>R: 243, G: 243, B: 243</li>
+                        <li>R: 192, G: 192, B: 192</li>
+                        <li>R: 118, G: 118, B: 118</li>
+                        <li>R: 48, G: 48, B: 48</li>
+                        <li>R: 5, G: 5, B: 5</li>
+                        <li>R: 6, G: 6, B: 6</li>
+                        <li>R: 51, G: 51, B: 51</li>
+                        <li>R: 122, G: 122, B: 122</li>
+                        <li>R: 195, G: 195, B: 195</li>
+                        <li>R: 244, G: 244, B: 244</li>
+                        <li>R: 251, G: 251, B: 251</li>
+                        <li>R: 214, G: 214, B: 214</li>
+                        <li>R: 145, G: 145, B: 145</li>
+                        <li>R: 70, G: 70, B: 70</li>
+                        <li>R: 16, G: 16, B: 16</li>
+                        <li>R: 1, G: 1, B: 1</li>
+                        <li>R: 31, G: 31, B: 31</li>
+                        <li>R: 96, G: 96, B: 96</li>
+                        <li>R: 171, G: 171, B: 171</li>
+                        <li>R: 231, G: 231, B: 231</li>
+                        <li>R: 254, G: 254, B: 254</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>2.2.)</h4>
+            <p class="desc">Auch bei der Bildabtastung muss das sogenannte Abtasttheorem eingehalten werden. Wie lautet es und wie läßt sich der Grenzfall, für den es gerade noch gilt, illustrieren</p>
+            <p>Das Abtasttheorem besagt genauso wie bei Audio-Frequenzen, dass für eine Periode mehr als 2 Pixel abgetastet werden müssen.<br/>Der Grenzfall ist auch hier, dass mit 2 Pixeln abgetastet werden, welche genau auf den Maximas der Periode liegen</p>
+            <div class="spacer"></div>
+            <img src="pics/2c-img.png" alt="Abtasttheorem Grenzfall">
+        </div>
+        <div class="task-block__single">
+            <h4>2.3)</h4>
+            <p class="desc">Erzeuge aus deinen eigenen Farbbildern Graustufen-Bilder. Dazu muss der Helligkeitswert Y aus den RGB-Werten errechnet werden. Es gibt dafür verschiedene Ansätze. Nutze die Formel Y= 0,3 x R + 0,6 x G + 0,1 x B, die die Helligkeitsempfindlichkeit des Auges annähert. Mit diesem Y-Wert wird dann die R, G und B-Information überschrieben. Speichere die Graustufenbilder ab.</p>
+            <div class="flex-block">
+                <div>
+                    <img src="pics/UE2-23-piano-bw.bmp" alt="Schwarz/Weiß Piano">
+                </div>
+                <div>
+                    <img src="pics/UE2-23-nature-bw.bmp.bmp" alt="Schwarz/Weiß Natur">
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>2.4)</h4>
+            <p class="desc">Erkläre, wie bei Bild- und Videoaufnahmen Aliasing entstehen kann. Ähnlich wie bei der 1. Übung am Audiosignal wollen wir auf das Bild ein Down-Sampling anwenden und
+                sehen, wann dabei Aliasing auftritt. Beim Audiosignal haben wir jedes zweite Sample verworfen und damit die Abtastfrequenz halbiert. Beim Bild verringern wir die räumliche
+                Auflösung, indem wir die Zahl der Bildzeilen bzw. Bildspalten verringern. Dabei wollen wir das Bild allerdings nicht verkleinern - was normalerweise die Folge wäre - sondern einfach
+                die ungeradzahligen Spalten durch den Inhalt der geradzahligen Spalten ersetzen, d.h. Spalte 1 wird durch Spalte 0 ersetzt, Spalte 3 durch Spalte 2 etc. und analog für die Zeilen.
+                Wenn das Ursprungsbild nun sehr feine Strukturen aufweist, wie in machen Testdateien, können Aliasing-Verzerrungen sichtbar werden. Achte darauf, dass stets Rot, Grün und
+                Blau getrennt manipuliert werden müssen.</p>
+            <p>Zeitliches Aliasing in einem Video kann ensteht aufgrund einer zu niedrigen Bildwiederholfrequenz. Das am weitverbreitetste Beispiel ist das Rad, welches bei einem eingentlich vorfährtsfahrenden Fahrzeug
+            wirkt als ob es rückwärts rollt oder sogar still steht. Das liegt daran, dass ein sich zu schnell drehendes Rad das Abtasttheorem verletzt. Die Drehung des Rades kann man als Signalfrequenz betrachten &
+            wenn sich dieses zu schnell dreht kann afgrund der zu niedrigen Bildwiederholfrequenz nicht mehr korrekt abgetastet werden und es entstehen oben genannte Aliasing-Effekte.<br/><br/></p>
+            <p>Wie schon in Aufgabe 2.1 angedeutet, können Bilder genauso wie Frequenzen als Schwingungen abgebildet werden. Sollte also das Abtasttheorem dann nicht eingehalten werden, entstehen sogenannte "Moire-Muster". Der Grund dafür ist, dass das Pixelraster, auf welchem abgetastet wird, zu grobmaschig ist und den schnellen Hell-Dunkel-Wechsel nicht korrekt erfassen kann.</p>
+        </div>
+        <div class="task-block__single">
+            <h4>2.5)</h4>
+            <p class="desc">Modifiziere bmp_io dahingehend, dass zunächst in jeder Zeile des eingelesenen Bilds jedes ungeradzahlige Pixel durch das davor liegende geradzahlige Pixel ersetzt wird
+                (horizontales Down-Sampling). Diese Veränderung hat natürlich nur bei einem der beiden Testbilder Sinn (warum?). Speichere das resultierende Bild ab. Da sich die Bildgröße bei
+                dieser Operation nicht ändert, muss der Bild-Header auch nicht verändert werden. Falls du im Ergebnis keine Veränderung sehen kannst, ersetze mehr Spalten, also Spalte 1 und 2
+                durch Spalte 0, dann Spalte 1, 2 und 3 durch Spalte 0 usw. Wende diese Manipulation auf die Testbilder an, bis du eine Veränderung in Form eines Moiré-Musters siehst. Notiere,
+                bei welcher Verringerung du die Veränderungen beobachtest und beschreibe die Veränderungen! Erkläre das Ergebnis an Hand der von dir bestimmten Periodendauer in</p>
+            <p>Das Downsampling macht keinen Sinn bei den horizontalen Linien, da wenn wir horizontales Downsampling betreiben immer Pixel aus der selben Zeile überschrieben werden. Da aber die Zeilen in dem Bild immer gleich sind, kann keine Veränderung entstehen.</p>
+            <div class="code-container">
+                PixelColor tempPixel = new PixelColor(0, 0, 0);<br/>
+                for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                &nbsp;for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                &nbsp;&nbsp;// ** ToDo **<br/>
+                &nbsp;&nbsp;&nbsp;if (x % 6 == 0) {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;tempPixel = bmp.image.getRgbPixel(x, y);<br/>
+                &nbsp;&nbsp;&nbsp;} else {<br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;bmp.image.setRgbPixel(x, y, tempPixel);<br/>
+                &nbsp;&nbsp;&nbsp;}<br/>
+                &nbsp;&nbsp;}<br/>
+                }
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">grating_H9 2x Downsampling</p>
+                    <img src="pics/grating_H9_downsampling_2_output.bmp" alt="grating_H9_2erSample">
+                </div>
+                <div>
+                    <p class="title">grating_H9 3x Downsampling</p>
+                    <img src="pics/grating_H9_downsampling_3_output.bmp" alt="grating_H9_2erSample">
+                </div>
+            </div>
+            <p>Wir haben das vertikale Bild auf eine Periodendauer von 5.72 Pixel geschätzt. Einfachhaltshalber runden wir das zur besseren veranschaulichung auf 6 Pixel. Also wir jeweils 1 Pixel mit dem vorherigen Pixel ersetzt haben,
+                entstand noch kein Moiré Effekt, da das Abtasttheorem noch nicht verletzt wurde. Denn auf der Periode von 6 Pixel wurde somit noch 3x abgetastet. Als wir jedoch 2 Pixel mit dem vorherigen ersetzt haben, gab es nur noch
+                2 Abtastpunkte, was weniger als die hälfte der Periodenlänge war und somit wurde das Abtasttheorem verletzt.</p>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Klavier Bild 3x Downsampling</p>
+                    <img src="pics/Manmade_Nachmittagsgruppe_2_downsampling_3_output.bmp" alt="Klavier 3erSample">
+                </div>
+                <div>
+                    <p class="title">Klavier Bild 6x Downsampling</p>
+                    <img src="pics/Manmade_Nachmittagsgruppe_2_downsampling_6_output.bmp" alt="Klavier 6erSample">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Natur Bild 3x Downsampling</p>
+                    <img src="pics/Nature_Nachmittagsgruppe_2_downsampling_3_output.bmp" alt="Natur 3erSample">
+                </div>
+                <div>
+                    <p class="title">Natur Bild 6x Downsampling</p>
+                    <img src="pics/Nature_Nachmittagsgruppe_2_downsampling_6_output.bmp" alt="Natur 6erSample">
+                </div>
+            </div>
+            <p>Man kann bei den eigenen Bilder ab dreifachem Downsampling leichte verschlechterungen bereits erkennen.<br/>Ab sechsfachen Downsampling beginnt das Bild deutlich unklarer zu werden.</p>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af3" class="main-title">Aufgabe 3</h3>
+        <div class="task-block__single">
+            <h4>3.1)</h4>
+            <p class="desc">Wir wollen nun bmp_io so modifizieren, dass wir die Bitzahl reduzieren können. Dazu können wir z.B. alle RGB-Werte durch eine Potenz von 2 teilen (Integer-Division ohne
+                Rest). Damit das resultierende Bild nicht dunkler wird als das Original, kompensieren wir die Operation durch Multiplikation mit derselben Zweierpotenz. Zu beachten: Der Datentyp
+                hat nach wie vor eine Bittiefe von 24Bit (8bit pro Farbe</p>
+            <div class="code-container">
+                <code>
+                    int reduced_bits = 5;<br/>
+                    for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    &nbsp;for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    &nbsp;&nbsp;PixelColor currentPx = bmp.image.getRgbPixel(x, y);<br/>
+                    &nbsp;&nbsp;double potenz = Math.pow(2, reduced_bits);<br/>
+                    &nbsp;&nbsp;currentPx.r /= potenz;<br/>
+                    &nbsp;&nbsp;currentPx.g /= potenz;<br/>
+                    &nbsp;&nbsp;currentPx.b /= potenz;<br/>
+                    &nbsp;&nbsp;currentPx.r *= potenz;<br/>
+                    &nbsp;&nbsp;currentPx.g *= potenz;<br/>
+                    &nbsp;&nbsp;currentPx.b *= potenz;<br/>
+                    &nbsp;}<br/>
+                    }
+                </code>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>3.2)</h4>
+            <p class="desc">Mit dem entstandenen Programm verändern wir die in Aufgabe 1 erzeugten BMP-Dateien. Ab welcher Bitzahl tritt beim Detail-Bild und beim Flächen-Bild eine sichtbare Verschlechterung der Qualität ein? Wie kann man diese Verschlechterung am besten beschreiben?</p>
+            <p>Schon ab dreifacher Bitreduzierung ist eine Verschlechterung der Qualität zu erkennen. Allerdings ist diese erst bei genauerem hinsehen erkennbar. Ab fünffacher Bitreduzierung nimmt die Verschlechterung deutlich zu</p>
+            <p>Die Verschlechterung ist daran zu erkennen, dass die Bildoberfläche unharmonisch und fleckig wirkt.  Besonders an sehr hellen oder dunklen Stellen entstehen fehlerhafte Farben. Die Grating Bilder werden schärfer aber auch dunkler, weil die Graustufen entfernt werden und somit nur die schwarzen Streifen übrig bleiben, was einen schärfe Effekt erzeugt.</p>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">Klavier Bild 3x Bitreduzierung</p>
+                    <img src="pics/Manmade_Nachmittagsgruppe_2_rb_3_output.bmp" alt="Klavier 3er Bitreduzierung">
+                </div>
+                <div>
+                    <p class="title">Klavier Bild 4x Bitreduzierung</p>
+                    <img src="pics/Manmade_Nachmittagsgruppe_2_rb_4_output.bmp" alt="Klavier 4er Bitreduzierung">
+                </div>
+                <div>
+                    <p class="title">Klavier Bild 5x Bitreduzierung</p>
+                    <img src="pics/Manmade_Nachmittagsgruppe_5_bitreduzierung.bmp" alt="Klavier 5er Bitreduzierung">
+                </div>
+            </div>
+        </div>
+        <div class="flex-block triple">
+            <div>
+                <p class="title">Natur Bild 3x Bitreduzierung</p>
+                <img src="pics/Nature_Nachmittagsgruppe_2_rb_3_output.bmp" alt="Natur 3er Bitreduzierung">
+            </div>
+            <div>
+                <p class="title">Natur Bild 4x Bitreduzierung</p>
+                <img src="pics/Nature_Nachmittagsgruppe_2_rb_4_output.bmp" alt="Natur 4er Bitreduzierung">
+            </div>
+            <div>
+                <p class="title">Natur Bild 5x Bitreduzierung</p>
+                <img src="pics/Nature_Nachmittagsgruppe_2_rb_5_output.bmp" alt="Natur 5er Bitreduzierung">
+            </div>
+        </div>
+        <div class="flex-block">
+            <div>
+                <p class="title">grating_H9 7x Bitreduzierung</p>
+                <img src="pics/grating_H9_rb_7_output.bmp" alt="grating_H9 7 Bitreduzierung">
+            </div>
+            <div>
+                <p class="title">grating_V12 7x Bitreduzierung</p>
+                <img src="pics/grating_V12_rb_7_output.bmp" alt="grating_V12 7 Bitreduzierung">
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
