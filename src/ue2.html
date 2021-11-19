@@ -345,7 +345,7 @@
         <div class="task-block__single">
             <h4>2.2.)</h4>
             <p class="desc">Auch bei der Bildabtastung muss das sogenannte Abtasttheorem eingehalten werden. Wie lautet es und wie läßt sich der Grenzfall, für den es gerade noch gilt, illustrieren</p>
-            <p>Das Abtasttheorem besagt genauso wie bei Audio-Frequenzen, dass für eine Periode mehr als 2 Pixel abgetastet werden müssen.<br/>Der Grenzfall ist auch hier, dass mit 2 Pixeln abgetastet werden, welche genau auf den Maximas der Periode liegen</p>
+            <p>Das Abtasttheorem besagt genauso wie bei Audio-Frequenzen, dass für eine Periode mehr als 2 Pixel abgetastet werden müssen.<br/>Der Grenzfall ist auch hier, dass mit 2 Pixeln abgetastet werden, welche genau auf den Maximas der Periode liegen.</p>
             <div class="spacer"></div>
             <img src="pics/2c-img.png" alt="Abtasttheorem Grenzfall">
         </div>
@@ -369,9 +369,9 @@
                 die ungeradzahligen Spalten durch den Inhalt der geradzahligen Spalten ersetzen, d.h. Spalte 1 wird durch Spalte 0 ersetzt, Spalte 3 durch Spalte 2 etc. und analog für die Zeilen.
                 Wenn das Ursprungsbild nun sehr feine Strukturen aufweist, wie in machen Testdateien, können Aliasing-Verzerrungen sichtbar werden. Achte darauf, dass stets Rot, Grün und
                 Blau getrennt manipuliert werden müssen.</p>
-            <p>Zeitliches Aliasing in einem Video kann ensteht aufgrund einer zu niedrigen Bildwiederholfrequenz. Das am weitverbreitetste Beispiel ist das Rad, welches bei einem eingentlich vorfährtsfahrenden Fahrzeug
+            <p>Zeitliches Aliasing in einem Video kann entstehen aufgrund einer zu niedrigen Bildwiederholfrequenz. Das am weitesten verbreitete Beispiel ist das Rad, welches bei einem eigentlich vorwärts fahrenden Fahrzeug
             wirkt als ob es rückwärts rollt oder sogar still steht. Das liegt daran, dass ein sich zu schnell drehendes Rad das Abtasttheorem verletzt. Die Drehung des Rades kann man als Signalfrequenz betrachten &
-            wenn sich dieses zu schnell dreht kann afgrund der zu niedrigen Bildwiederholfrequenz nicht mehr korrekt abgetastet werden und es entstehen oben genannte Aliasing-Effekte.<br/><br/></p>
+            wenn sich dieses zu schnell dreht kann aufgrund der zu niedrigen Bildwiederholfrequenz nicht mehr korrekt abgetastet werden und es entstehen oben genannte Aliasing-Effekte.<br/><br/></p>
             <p>Wie schon in Aufgabe 2.1 angedeutet, können Bilder genauso wie Frequenzen als Schwingungen abgebildet werden. Sollte also das Abtasttheorem dann nicht eingehalten werden, entstehen sogenannte "Moire-Muster". Der Grund dafür ist, dass das Pixelraster, auf welchem abgetastet wird, zu grobmaschig ist und den schnellen Hell-Dunkel-Wechsel nicht korrekt erfassen kann.</p>
         </div>
         <div class="task-block__single">
@@ -386,8 +386,7 @@
                 PixelColor tempPixel = new PixelColor(0, 0, 0);<br/>
                 for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
                 &nbsp;for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
-                &nbsp;&nbsp;// ** ToDo **<br/>
-                &nbsp;&nbsp;&nbsp;if (x % 6 == 0) {<br/>
+                &nbsp;&nbsp;&nbsp;if (x % 3 == 0) {<br/>
                 &nbsp;&nbsp;&nbsp;&nbsp;tempPixel = bmp.image.getRgbPixel(x, y);<br/>
                 &nbsp;&nbsp;&nbsp;} else {<br/>
                 &nbsp;&nbsp;&nbsp;&nbsp;bmp.image.setRgbPixel(x, y, tempPixel);<br/>
@@ -405,7 +404,7 @@
                     <img src="pics/grating_H9_downsampling_3_output.bmp" alt="grating_H9_2erSample">
                 </div>
             </div>
-            <p>Wir haben das vertikale Bild auf eine Periodendauer von 5.72 Pixel geschätzt. Einfachhaltshalber runden wir das zur besseren veranschaulichung auf 6 Pixel. Also wir jeweils 1 Pixel mit dem vorherigen Pixel ersetzt haben,
+            <p>Wir haben das vertikale Bild auf eine Periodendauer von 5.72 Pixel geschätzt. Einfachhaltshalber runden wir das zur besseren veranschaulichung auf 6 Pixel. Als wir jeweils 1 Pixel mit dem vorherigen Pixel ersetzt haben,
                 entstand noch kein Moiré Effekt, da das Abtasttheorem noch nicht verletzt wurde. Denn auf der Periode von 6 Pixel wurde somit noch 3x abgetastet. Als wir jedoch 2 Pixel mit dem vorherigen ersetzt haben, gab es nur noch
                 2 Abtastpunkte, was weniger als die hälfte der Periodenlänge war und somit wurde das Abtasttheorem verletzt.</p>
             <div class="flex-block">
@@ -459,7 +458,7 @@
         <div class="task-block__single">
             <h4>3.2)</h4>
             <p class="desc">Mit dem entstandenen Programm verändern wir die in Aufgabe 1 erzeugten BMP-Dateien. Ab welcher Bitzahl tritt beim Detail-Bild und beim Flächen-Bild eine sichtbare Verschlechterung der Qualität ein? Wie kann man diese Verschlechterung am besten beschreiben?</p>
-            <p>Schon ab dreifacher Bitreduzierung ist eine Verschlechterung der Qualität zu erkennen. Allerdings ist diese erst bei genauerem hinsehen erkennbar. Ab fünffacher Bitreduzierung nimmt die Verschlechterung deutlich zu</p>
+            <p>Schon ab dreifacher Bitreduzierung ist eine Verschlechterung der Qualität zu erkennen. Allerdings ist diese erst bei genauerem hinsehen erkennbar. Ab fünffacher Bitreduzierung nimmt die Verschlechterung deutlich zu.</p>
             <p>Die Verschlechterung ist daran zu erkennen, dass die Bildoberfläche unharmonisch und fleckig wirkt.  Besonders an sehr hellen oder dunklen Stellen entstehen fehlerhafte Farben. Die Grating Bilder werden schärfer aber auch dunkler, weil die Graustufen entfernt werden und somit nur die schwarzen Streifen übrig bleiben, was einen schärfe Effekt erzeugt.</p>
             <div class="flex-block triple">
                 <div>
