@@ -475,29 +475,111 @@
                     <img src="pics/Manmade_Nachmittagsgruppe_5_bitreduzierung.bmp" alt="Klavier 5er Bitreduzierung">
                 </div>
             </div>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">Natur Bild 3x Bitreduzierung</p>
+                    <img src="pics/Nature_Nachmittagsgruppe_2_rb_3_output.bmp" alt="Natur 3er Bitreduzierung">
+                </div>
+                <div>
+                    <p class="title">Natur Bild 4x Bitreduzierung</p>
+                    <img src="pics/Nature_Nachmittagsgruppe_2_rb_4_output.bmp" alt="Natur 4er Bitreduzierung">
+                </div>
+                <div>
+                    <p class="title">Natur Bild 5x Bitreduzierung</p>
+                    <img src="pics/Nature_Nachmittagsgruppe_2_rb_5_output.bmp" alt="Natur 5er Bitreduzierung">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">grating_H9 7x Bitreduzierung</p>
+                    <img src="pics/grating_H9_rb_7_output.bmp" alt="grating_H9 7 Bitreduzierung">
+                </div>
+                <div>
+                    <p class="title">grating_V12 7x Bitreduzierung</p>
+                    <img src="pics/grating_V12_rb_7_output.bmp" alt="grating_V12 7 Bitreduzierung">
+                </div>
+            </div>
         </div>
-        <div class="flex-block triple">
-            <div>
-                <p class="title">Natur Bild 3x Bitreduzierung</p>
-                <img src="pics/Nature_Nachmittagsgruppe_2_rb_3_output.bmp" alt="Natur 3er Bitreduzierung">
+        <div class="task-block__single">
+            <h4>3.3)</h4>
+            <p class="desc">Modifiziere dein Programm noch einmal so, dass auch das Differenzbild zwischen Original und bitreduziertem Bild, das heißt das Fehlerbild ausgegeben, werden kann. Beachte
+                dabei, dass bei der Differenzbildung negative und positive Werte auftreten können. Diese müssen wieder in den Wertebereich 0...255 transformiert werden, d.h. auf den Mittelwert
+                127 gebracht werden (wie?). Dabei musst du auch bedenken, dass z.B. bei 1 Bit Reduzierung der Fehler nur 0, 1 oder -1 wäre. Dieser Wertebereich wäre viel zu klein, als dass man
+                ihn in der 8bit-Grafik noch sehen könnte. Daher muss der Fehler durch Multiplikation mit einer 2er Potenz verstärkt werden. In anderen Worten: Hat man vorher durch 2^n geteilt,
+                sollte man das Differenzsignal vor dem Abspeichern mit 2^(8-n-1) multiplizieren. So ist sichergestellt, dass der Verstärkungsfaktor mit der Anzahl der gelöschten Bits kleiner</p>
+            <div class="code-container">
+                <code>
+                    // bitreduzierung differenz<br/>
+                    int reduced_bits = 3;<br/>
+                    final int bitsPerColor = 8;<br/>
+                    for(int y = 0; y < bmp.image.getHeight(); y++){<br/>
+                    &nbsp;for(int x = 0; x < bmp.image.getWidth(); x++){<br/>
+                    &nbsp;&nbsp;PixelColor currentPixel = bmp.image.getRgbPixel(x, y);<br/>
+                    &nbsp;&nbsp;PixelColor copyPx = new PixelColor(currentPixel.r, currentPixel.g, currentPixel.b);<br/>
+                    &nbsp;&nbsp;copyPx.b /= Math.pow(2, reduced_bits);<br/>
+                    &nbsp;&nbsp;copyPx.r /= Math.pow(2, reduced_bits);<br/>
+                    &nbsp;&nbsp;copyPx.g /= Math.pow(2, reduced_bits);<br/>
+                    <br/>
+                    &nbsp;&nbsp;copyPx.b *= Math.pow(2, reduced_bits);<br/>
+                    &nbsp;&nbsp;copyPx.r *= Math.pow(2, reduced_bits);<br/>
+                    &nbsp;&nbsp;copyPx.g *= Math.pow(2, reduced_bits);<br/>
+                    <br/>
+                    &nbsp;&nbsp;currentPixel.b -= copyPx.b;<br/>
+                    &nbsp;&nbsp;currentPixel.r -= copyPx.r;<br/>
+                    &nbsp;&nbsp;currentPixel.g -= copyPx.g;<br/>
+                    <br/>
+                    &nbsp;&nbsp;copyPx.b *= Math.pow(2, bitsPerColor - reduced_bits - 1);<br/>
+                    &nbsp;&nbsp;copyPx.r *= Math.pow(2, bitsPerColor - reduced_bits - 1);<br/>
+                    &nbsp;&nbsp;copyPx.g *= Math.pow(2, bitsPerColor - reduced_bits - 1);<br/>
+                    <br/>
+                    &nbsp;&nbsp;copyPx.b = copyPx.b / 2 + 127;<br/>
+                    &nbsp;&nbsp;copyPx.r = copyPx.r / 2 + 127;<br/>
+                    &nbsp;&nbsp;copyPx.g = copyPx.g / 2 + 127;<br/>
+                    <br/>
+                    &nbsp;&nbsp;bmp.image.setRgbPixel(x, y, copyPx);<br/>
+                    &nbsp;}<br/>
+                    }
+                </code>
             </div>
-            <div>
-                <p class="title">Natur Bild 4x Bitreduzierung</p>
-                <img src="pics/Nature_Nachmittagsgruppe_2_rb_4_output.bmp" alt="Natur 4er Bitreduzierung">
+            <div class="flex-block">
+                <div>
+                    <p class="title">Klavier 2x reduced bits</p>
+                    <img src="pics/Manmade_Nachmittagsgruppe_2_rb_differenz_2_output.bmp" alt="Klavier 2x Differenzbildung">
+                </div>
+                <div>
+                    <p class="title">Klavier 6x reduced bits</p>
+                    <img src="pics/Manmade_Nachmittagsgruppe_2_rb_differenz_6_output.bmp" alt="Klavier 6x Differenzbildung">
+                </div>
             </div>
-            <div>
-                <p class="title">Natur Bild 5x Bitreduzierung</p>
-                <img src="pics/Nature_Nachmittagsgruppe_2_rb_5_output.bmp" alt="Natur 5er Bitreduzierung">
+            <div class="flex-block">
+                <div>
+                    <p class="title">Natur 2x reduced bits</p>
+                    <img src="pics/Nature_Nachmittagsgruppe_2_rb_differenz_2_output.bmp" alt="Natur 2x Differenzbildung">
+                </div>
+                <div>
+                    <p class="title">Natur 6x reduced bits</p>
+                    <img src="pics/Nature_Nachmittagsgruppe_2_rb_differenz_6_output.bmp" alt="Natur 6x Differenzbildung">
+                </div>
             </div>
-        </div>
-        <div class="flex-block">
-            <div>
-                <p class="title">grating_H9 7x Bitreduzierung</p>
-                <img src="pics/grating_H9_rb_7_output.bmp" alt="grating_H9 7 Bitreduzierung">
+            <div class="flex-block">
+                <div>
+                    <p class="title">grating_H9 2x reduced bits</p>
+                    <img src="pics/grating_H9_rb_differenz_2_output.bmp" alt="grating_H9 2x Differenzbildung">
+                </div>
+                <div>
+                    <p class="title">grating_H9 6x reduced bits</p>
+                    <img src="pics/grating_H9_rb_differenz_6_output.bmp" alt="grating_H9 2x Differenzbildung">
+                </div>
             </div>
-            <div>
-                <p class="title">grating_V12 7x Bitreduzierung</p>
-                <img src="pics/grating_V12_rb_7_output.bmp" alt="grating_V12 7 Bitreduzierung">
+            <div class="flex-block">
+                <div>
+                    <p class="title">grating_V12 2x reduced bits</p>
+                    <img src="pics/grating_V12_rb_differenz_2_output.bmp" alt="grating_V12 2x Differenzbildung">
+                </div>
+                <div>
+                    <p class="title">grating_V12 6x reduced bits</p>
+                    <img src="pics/grating_V12_rb_differenz_6_output.bmp" alt="grating_V12 2x Differenzbildung">
+                </div>
             </div>
         </div>
     </div>
