@@ -234,6 +234,9 @@ nav.navbar a:hover {
 .content__task .flex-block.triple div:nth-of-type(1), .content__task .flex-block.triple div:first-of-type {
   margin-right: 10px;
 }
+.content__task .flex-block.table {
+  align-items: center;
+}
 .content__task table {
   border-collapse: collapse;
   border-spacing: 0;
