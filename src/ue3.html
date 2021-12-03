@@ -22,7 +22,7 @@
     <div>
         <a href="#top">Anfang</a>
         <a href="#af1">Aufgabe 1</a>
-        <a href="#af2">Aufgabe 2</a>
+        <a href="#af1-4">Aufgabe 1 (4.)</a>
     </div>
     <div>
         <p>Darkmode</p>
@@ -316,6 +316,78 @@
                     <p class="title">.WAV Datei</p>
                     <audio controls>
                         <source src="./audio/UE3-rec10-90.wav" type="audio/wav">
+                    </audio>
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>3.</h4>
+            <p class="desc">Schwebung: Nun bringen wir einen zweiten Oszillator zum Einsatz. Um die Ausgänge der
+                beiden Oszillatoren anschließen und in der Lautstärke regeln zu können, benötigen wir ein
+                MIXER-Modul, das wir zwischen die beiden VCAs und AUDIO schalten.
+                Zunächst stellen wir beide Oszillatoren auf exakt dieselbe Frequenz und
+                Dreiecksschwingung. Dann verstimmen wir den zweiten gegen den ersten und zeichnen
+                den Klang auf, wenn wir gerade eine Amplitudenmodulation feststellen (Fall A), d.h. einen
+                in der Lautstärke schwankenden Ton. Wir verstimmen die Oszillatoren weiter
+                gegeneinander, bis wir den Eindruck einer Dissonanz haben (Fall B), d.h. es entsteht ein
+                rauer, unangenehmer Klang.
+                Beachte, dass der Regler 'FREQ' den betreffenden Oszillator in etwa um Halbtöne
+                verstimmt, während 'FINE' dies um Bruchteile von Halbtöne tut. Am besten experimentiert
+                man zunächst mit dem 'FINE'-Regler und erst, wenn z.B. bei Fall B sich der gewünschte
+                Effekt nicht einstellt, mit dem 'FREQ'-Regler.</p>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Amplitudenmodulation - Mittelfrequenz</p>
+                    <p>Wir haben eine Periodendauer T von 0.004s.<br/>Frequenz f = 1/T = 1/0.004s = 250Hz.<br/>Die Mittelfrequenz beträgt 250Hz.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE3-Am-mittel.png" alt="Amplitudenmodulation Mittelfrequenz">
+                </div>
+                <div>
+                    <p class="title">Amplitudenmodulation - Differenzfrequenz</p>
+                    <p>Wir haben eine Periodendauer T von 0.480s<br/>Frequenz f = 1/T = 1/0.48s = 208.33Hz.<br/>Die Differenzfrequenz beträgt 208.33Hz.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE3-Am-differenz.png" alt="Amplitudenmodulation Differenzfrequenz">
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Dissonanz - Mittelfrequenz</p>
+                    <p>Wir haben eine Periodendauer T von 0.003s.<br/>Frequenz f = 1/T = 1/0.003s = 333.33Hz.<br/>Die Mittelfrequenz beträgt 333.33Hz.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE3-Dissonanz-mittel.png" alt="Dissonanz Mittelfrequenz">
+                </div>
+                <div>
+                    <p class="title">Dissonanz - Differenzfrequenz</p>
+                    <p>Wir haben eine Periodendauer T von 0.026s.<br/>Frequenz f = 1/T = 1/0.026s = 3846.15Hz.<br/>Die Differenzfrequenz beträgt 3846.15Hz.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE3-Dissonanz-differenz.png" alt="Dissonanz Differenzfrequenz">
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single" id="af1-4">
+            <h4>4.</h4>
+            <p class="desc">Klangnachbildung: Wir wollen nun versuchen, selber einen interessanten Klang zu
+                kreieren. Die einzigen Anforderungen sind, dass wir dazu die Taste Y drücken, und dass
+                es ein monophoner Klang ist, d.h. dass nur eine Taste gedrückt wird und eine Note
+                erklingt. Zunächst wählen wir die Grundwellenform (Rechteck, Sägezahn, etc.), die
+                klanglich am besten zu unserem Instrument passt. Um die Hüllkurve entsprechend
+                manipulieren zu können, brauchen wir ein ADSR-Modul („Envelope“), das wir zwischen
+                dem Ausgang GATE des MIDI-Moduls und EXP Eingängen der VCAs einbauen.
+                Damit versuchen wir zunächst den zeitlichen Verlauf einzustellen.</p>
+            <p>Zum Vorbild haben wir uns ein Cello genommen, dessen Sound wir versucht haben nachzuahmen.
+                Dafür haben wir 3 Oszillatoren mit unterschiedlichen Sounds (Triangle, Saw und Square) verwendet. Der Sägezahn Sound ist maßgeblich für den Cello Ton zuständig, da er das Streichen des Bogens am besten simuliert. Die anderen beiden Sounds unterstützen das Klangbild.
+                Wir haben 2 ADSR benutzt, aus dem Grund, dass der Dreieck Sound noch ein wenig länger nachklingen soll (mehr Release) und damit das Ausklingen des Cellos simuliert. Die restlichen Einstellungen beider ADSR's sind gleich. Dazu gehören beispielsweise ein verspäteter Attack, damit der Ton ein "fade-in" bekommt, so wie es bei einem Cello üblich ist.</p>
+            <div class="flex-block table">
+                <div>
+                    <img src="pics/UE3-Cello-VCV.png" alt="Cello VCV Rack" class="standalone-img">
+                </div>
+                <div>
+                    <img src="pics/UE3-Cello-klangbild.png" alt="Cello Klangbild">
+                    <div class="spacer"></div>
+                    <p class="title">Sound Preview</p>
+                    <audio controls>
+                        <source src="./audio/UE3-Cello-Sound.wav" type="audio/wav">
                     </audio>
                 </div>
             </div>

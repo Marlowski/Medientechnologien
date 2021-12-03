@@ -287,6 +287,14 @@ nav.navbar a:hover {
 .content__task .small-list li.marked {
   color: #4b4bef;
 }
+.content__task .standalone-img {
+  display: block;
+  margin: 50px 0;
+  max-width: 100%;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 :root {
   font-family: "europa", sans-serif;
