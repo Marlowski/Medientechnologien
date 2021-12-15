@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Marlon Kerth">
+    <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/jby6hqc.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script/script.js"></script>
+    <title>Medientechnologien WiSe 21/22</title>
+</head>
+
+<body class="content">
+
+<iframe src="oben.html" width="800" height="120" name="IFrame3" id="IFrame3" scrolling="no" frameborder="0">
+         <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+         folgenden.</p>
+</iframe>
+
+<nav class="navbar">
+    <div>
+        <a href="#top">Anfang</a>
+        <a href="#af1">Aufgabe 1</a>
+        <a href="#af2">Aufgabe 2</a>
+        <a href="#af3">Aufgabe 3</a>
+    </div>
+    <div>
+        <p>Darkmode</p>
+        <label class="switch">
+            <input type="checkbox">
+            <span></span>
+        </label>
+    </div>
+</nav>
+<div class="content__task">
+    <h1 id="top">Übung 4</h1>
+    <div class="task-block">
+        <h3 id="af1" class="main-title">Aufgabe 1</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">RGB ist der gebräuchlichste Farbraum bei der Aufzeichnung und Darstellung von Bildern. Hier wird das
+                Lichtspektrum in seine Rot-, Grün- und Blauanteile aufgespalten. Der YCbCr Farbraum hingegen besteht aus
+                der Luminanz Y (Helligkeit) und den Farbanteilen (Chrominanz) Cb und Cr. Die RGB Farben eines Bildes
+                lassen sich also in den YCbCr Farbraum transformieren. Für viele Anwendungen, z.B. die Bildkompression,
+                ist es günstig, Helligkeits- und Farbinformation getrennt zu verarbeiten. Nenne den physiologischen Grund
+                dafür!</p>
+            <p>Aufgrund der physiologischen Tatsache, dass das Auge Farbinformation im Gegensatz zur Helligkeitsinformation nur mit reduzierter Auflösung wahrnehmen kann, kann die
+                Chrominanz von Bilder mit einer geringeren Abtastrate gespeichert werden. Die Auflösung der Luminanz bleibt dabei unangetastet. Somit können z.b Bilder deutlich
+                in ihrer Größe reduziert werden, ohne das diese groß an Qualität verlieren.
+            </p>
+        </div>
+        <div class="task-block__single">
+            <h4>b.)</h4>
+            <p class="desc">Erstelle aus deinem eigenen Bild Versionen, die nur jeweils den Rot-, Grün- und Blauanteil zeigen.
+                (Hinweis: Dazu müssen einfach die jeweils anderen Farbwerte auf null gesetzt werden)</p>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Natur - Rot</p>
+                    <img src="pics/UE4-natur-rot.bmp" alt="Natur Rot">
+                    <div class="spacer"></div>
+                    <p class="title">Natur - Grün</p>
+                    <img src="pics/UE4-natur-gruen.bmp" alt="Natur Grün">
+                    <div class="spacer"></div>
+                    <p class="title">Natur - Blau</p>
+                    <img src="pics/UE4-natur-blau.bmp" alt="Natur Blau">
+                </div>
+                <div>
+                    <p class="title">Piano - Rot</p>
+                    <img src="pics/UE4-piano-rot.bmp" alt="Piano Rot">
+                    <div class="spacer"></div>
+                    <p class="title">Piano - Grün</p>
+                    <img src="pics/UE4-piano-gruen.bmp" alt="Piano Grün">
+                    <div class="spacer"></div>
+                    <p class="title">Piano - Blau</p>
+                    <img src="pics/UE4-piano-blau.bmp" alt="Piano Blau">
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>c.)</h4>
+            <p class="desc">Nun erzeuge jeweils ein Bild für Y, Cb und Cr. Lese dafür jedes Pixel ein und berechne die Helligkeit Y
+                (Luminanzformel!) sowie die Chrominanzen Cb und Cr (Chrominanzformeln!) aus den RGB Werten.</p>
+            <div class="code-container">
+                <code>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // Übung 4 - Aufgabe 1c) -> YCbCr Bilder erzeugen<br/>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    PixelColor currentPixelColor = bmp.image.getRgbPixel(x, y);<br/>
+                    // Y berechnen (Helligkeit (Graustufen))<br/>
+                    double pcY = 0.299 * currentPixelColor.r + 0.587 * currentPixelColor.g + 0.114 * currentPixelColor.b;<br/>
+                    // Cb berechnen (Farbigkeit (Blau-Gelb-Differenz))<br/>
+                    double pcCb = (-0.169 * currentPixelColor.r - 0.331 * currentPixelColor.g + 0.5 * currentPixelColor.b) + 128;<br/>
+                    // Cr berechnen (Farbigkeit (Rot-Grün-Differenz))<br/>
+                    double pcCr = (0.5 * currentPixelColor.r - 0.419 * currentPixelColor.g - 0.081 * currentPixelColor.b) + 128;<br/>
+                    <br/>
+                    // Konstanten für die verschiedenen Bilder festlegen<br/>
+                    pcY = 128;<br/>
+                    //pcCb = 128;<br/>
+                    pcCr = 128;<br/>
+                    <br/>
+                    // Rekonstruktion der RGB Bilder unter jeweiliger Verwendung der Konstanten, damit die Bilder nicht<br/>
+                    // vollständig zu RGB Bildern zurück gerechnet werden<br/>
+                    // Beispiel: für Cb Bild werden pcCr und pcY auf 128 gesetzt und pcCb normal berechnet<br/>
+                    double pcR = pcY + 1.403 * (pcCr - 128);<br/>
+                    double pcG = pcY - 0.344 * (pcCb - 128) - 0.714 * (pcCr - 128);<br/>
+                    double pcB = pcY + 1.773 * (pcCb - 128);<br/>
+
+                    PixelColor newPixelColor = new PixelColor((int) pcR, (int) pcG, (int) pcB);<br/>
+                    bmp.image.setRgbPixel(x, y, newPixelColor);<br/>
+                    }<br/>
+                    }<br/>
+                </code>
+            </div>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">Y</p>
+                    <img src="pics/klavier_Y.bmp" alt="Klavier Y">
+                </div>
+                <div>
+                    <p class="title">Cb</p>
+                    <img src="pics/klavier_Cb.bmp" alt="Klavier Cb">
+                </div>
+                <div>
+                    <p class="title">Cr</p>
+                    <img src="pics/klavier_Cr.bmp" alt="Klavier Cr">
+                </div>
+            </div>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">Y</p>
+                    <img src="pics/natur_Y.bmp" alt="Natur Y">
+                </div>
+                <div>
+                    <p class="title">Cb</p>
+                    <img src="pics/natur_Cb.bmp" alt="Natur Cb">
+                </div>
+                <div>
+                    <p class="title">Cr</p>
+                    <img src="pics/natur_Cr.bmp" alt="Natur Cr">
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>d.)</h4>
+            <p class="desc">Wandle zur Rekonstruktion deines Bildes die YCbCr Werte zurück in RGB.</p>
+            <div class="flex-block">
+                <div class="code-container">
+                    <code>
+                        // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // Übung 4 - Aufgabe 1d) -> YCbCr Bilder zu RGB Bildern rekonstruieren<br/>
+                        // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        //<br/>
+                        for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        // get Pixel<br/>
+                        PixelColor currentPixelColor = bmp.image.getRgbPixel(x, y);<br/>
+                        <br/>
+                        // berechne Y (Helligkeit (Graustufen))<br/>
+                        double pcY = 0.299 * currentPixelColor.r + 0.587 * currentPixelColor.g + 0.114 * currentPixelColor.b;<br/>
+                        // berechne Cb (Farbigkeit (Blau-Gelb-Differenz))<br/>
+                        double pcCb = (-0.169 * currentPixelColor.r - 0.331 * currentPixelColor.g + 0.5 * currentPixelColor.b) + 128;<br/>
+                        // berechne Cr (Farbigkeit (Rot-Grün-Differenz))<br/>
+                        double pcCr = (0.5 * currentPixelColor.r - 0.419 * currentPixelColor.g - 0.081 * currentPixelColor.b) + 128;<br/>
+                        <br/>
+                        // RGB Daten rekonstruieren<br/>
+                        double pcR = pcY + 1.403 * (pcCr - 128);<br/>
+                        double pcG = pcY - 0.344 * (pcCb - 128) - 0.714 * (pcCr - 128);<br/>
+                        double pcB = pcY + 1.773 * (pcCb - 128);<br/>
+
+                        // set new Pixel<br/>
+                        PixelColor newPixelColor = new PixelColor((int) pcR, (int) pcG, (int) pcB);<br/>
+                        bmp.image.setRgbPixel(x, y, newPixelColor);<br/>
+                        }<br/>
+                        }<br/>
+                    </code>
+                </div>
+                <div>
+                    <p class="title">Natur Rekonstruktion</p>
+                    <img src="pics/natur_rgb_rekonstruktion.bmp" alt="Natur Rekonstruktion">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af2" class="main-title">Aufgabe 2</h3>
+        <div class="task-block__single">
+            <p class="desc">Mithilfe eines Histogramms kann die Verteilung (Häufigkeit) der Helligkeiten eines Bildes dargestellt
+                werden. Erstelle ein Histogramm für das monochrome Detailbild aus Aufgabe 1 (Y - Bild). Lese dafür den
+                Helligkeitswert der Pixel ein und bestimme die Helligkeitshäufigkeiten (Anzahl gleicher Helligkeiten). Diese
+                sollen in eine Textdatei geschrieben und als Histogramm dargestellt werden (z.B. in Excel, Java).</p>
+            <div class="flex-block table">
+                <div class="code-container">
+                    <code>
+                        // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // Übung 4 - Aufgabe 2) Histogramm<br/>
+                        // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        int[] hist = new int[256];<br/>
+                        PrintWriter outputWriter = new PrintWriter("Histogramm-Klavier.txt", StandardCharsets.UTF_8);<br/>
+                        <br/>
+                        for(int y = 0; y < bmp.image.getHeight(); y++){<br/>
+                        for(int x = 0; x < bmp.image.getWidth(); x++){<br/>
+                        PixelColor currentPixelColor = bmp.image.getRgbPixel(x, y);<br/>
+                        // da rgb immer gleich sind bei grauwerten, reicht es wenn man einen farbwert betrachtet<br/>
+                        hist[currentPixelColor.r]++;<br/>
+                        }<br/>
+                        }<br/>
+
+                        for(int pixelColor : hist) {<br/>
+                        outputWriter.println(pixelColor);<br/>
+                        }<br/>
+                        outputWriter.flush();<br/>
+                        outputWriter.close();<br/>
+                    </code>
+                </div>
+                <div>
+                    <p class="title">Naturbild Histogramm</p>
+                    <img src="pics/UE4-histogramm.png" alt="Histogramm">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af3" class="main-title">Aufgabe 3</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">Berechne die mittlere Helligkeit des monochromen Detailbildes aus Aufgabe 1 (Y - Bild). Lese dafür den
+                Helligkeitswert der Pixel ein. Die mittlere Helligkeit ist die Summe aller Helligkeitswerte geteilt durch die
+                Anzahl der Bildpunkte. Berechne auch den Kontrast des Bildes, d.h. die Standardabweichung der Helligkeit.</p>
+            <p><b>Mittlere Helligkeit:</b> 99.79</p>
+            <p><b>Standardabweichung:</b> 44.49</p>
+            <div class="code-container">
+                <code>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // Übung 4 - Aufgabe 3a)<br/>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // mittlere Helligkeit berechnen<br/>
+                    int allPixelColors = 0;<br/>
+                    for(int y = 0; y < bmp.image.getHeight(); y++){<br/>
+                    for(int x = 0; x < bmp.image.getWidth(); x++){<br/>
+                    allPixelColors = bmp.image.getRgbPixel(x, y).r;<br/>
+                    }<br/>
+                    }<br/>
+                    double averageBrightness = (double) allPixelColors / (bmp.image.getWidth() * bmp.image.getHeight());<br/>
+                    System.out.println("mittlere Helligkeit: " + averageBrightness);<br/>
+                    <br/>
+                    // Standardabweichung berechnen<br/>
+                    allPixelColors = 0;<br/>
+                    for(int y = 0; y < bmp.image.getHeight(); y++){<br/>
+                    for(int x = 0; x < bmp.image.getWidth(); x++){<br/>
+                    PixelColor currentPixelColor = bmp.image.getRgbPixel(x, y);<br/>
+                    allPixelColors += Math.pow(currentPixelColor.r - averageBrightness, 2);<br/>
+                    }<br/>
+                    }<br/>
+                    double variance = (double) allPixelColors / (bmp.image.getWidth() * bmp.image.getHeight());<br/>
+                    double standardDeviation = Math.sqrt(variance);<br/>
+                    System.out.println("Standardabweichung: " + standardDeviation);<br/>
+                </code>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>b.)</h4>
+            <p class="desc">Verändere das monochrome Bild in der Helligkeit durch Subtrahieren der Werte h=(-20, -40, -60, -80)
+                bzw. Addieren der Werte h=(20, 40, 60, 80). Beachte dabei, dass ihr beim Ergebnis der Pixelwert-
+                berechnung im 8-Bit-Bereich bleibt. Berechne die Histogramme des hellsten und dunkelsten Bildes.</p>
+            <div class="code-container">
+                <code>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // Übung 4 - Aufgabe 3b)<br/>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    int brightness = -80;<br/>
+                    for(int y = 0; y < bmp.image.getHeight(); y++){<br/>
+                    for(int x = 0; x < bmp.image.getWidth(); x++){<br/>
+                    int pxVal = bmp.image.getRgbPixel(x, y).r + brightness;<br/>
+                    <br/>
+                    if(pxVal < 0) pxVal = 0;<br/>
+                    else if(pxVal > 255) pxVal = 255;<br/>
+                    <br/>
+                    bmp.image.setRgbPixel(x, y, new PixelColor(pxVal, pxVal, pxVal));<br/>
+                    }<br/>
+                    }<br/>
+                </code>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Helligkeit (-20)</p>
+                    <img src="pics/natur_Y_output-20.bmp" alt="Naturbild -20 Helligkeit">
+                </div>
+                <div>
+                    <p class="title">Helligkeit (-40)</p>
+                    <img src="pics/natur_Y_output-40.bmp" alt="Naturbild -40 Helligkeit">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Helligkeit (-60)</p>
+                    <img src="pics/natur_Y_output-60.bmp" alt="Naturbild -60 Helligkeit">
+                </div>
+                <div>
+                    <p class="title">Helligkeit (-80)</p>
+                    <img src="pics/natur_Y_output-80.bmp" alt="Naturbild -80 Helligkeit">
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Helligkeit (+20)</p>
+                    <img src="pics/natur_Y_output+20.bmp" alt="Naturbild +20 Helligkeit">
+                </div>
+                <div>
+                    <p class="title">Helligkeit (+40)</p>
+                    <img src="pics/natur_Y_output+40.bmp" alt="Naturbild +40 Helligkeit">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Helligkeit (+60)</p>
+                    <img src="pics/natur_Y_output+60.bmp" alt="Naturbild +60 Helligkeit">
+                </div>
+                <div>
+                    <p class="title">Helligkeit (+80)</p>
+                    <img src="pics/natur_Y_output+80.bmp" alt="Naturbild +80 Helligkeit">
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Histogramm Helligkeit (+80)</p>
+                    <p>(Logarithmische Wertedartstellung)</p>
+                    <img src="pics/UE4-Histogramm-ueberbelichtet.png" alt="Histogramm Helligkeit (+80)">
+                </div>
+                <div>
+                    <p class="title">Histogramm Helligkeit (-80)</p>
+                    <p>(Logarithmische Wertedartstellung)</p>
+                    <img src="pics/UE4-Histogramm-unterberlichtet.png" alt="Histogramm Helligkeit (-80)">
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>c.)</h4>
+            <p class="desc">Erhöhe bzw. verringere den Kontrast durch Multiplikation mit den Faktoren k=(0.2, 0.4, 0.8, 1.0) sowie
+                k=(1.5, 2.5, 5.0, 10.0). Was würde bei einer Kontraständerung mit k < 0 passieren (Einfach ausprobieren
+                und Bild speichern!)?</p>
+            <div class="code-container">
+                <code>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // Übung 4 - Aufgabe 3c)<br/>
+                    // ++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    double contrast = 0.2;<br/>
+                    int[] hist = new int[256];<br/>
+                    PrintWriter outputWriter = new PrintWriter("Histogramm-3c)-low-contrast.txt", StandardCharsets.UTF_8);<br/>
+                    for(int y = 0; y < bmp.image.getHeight(); y++){<br/>
+                    for(int x = 0; x < bmp.image.getWidth(); x++){<br/>
+                    double pxVal = bmp.image.getRgbPixel(x, y).r;<br/>
+                    pxVal = contrast * (pxVal - 128) + 128;<br/>
+                    <br/>
+                    if(pxVal < 0) pxVal = 0;<br/>
+                    else if(pxVal > 255) pxVal = 255;<br/>
+                    <br/>
+                    hist[(int) pxVal]++;<br/>
+                    <br/>
+                    bmp.image.setRgbPixel(x, y, new PixelColor((int) pxVal, (int) pxVal, (int) pxVal));<br/>
+                    }<br/>
+                    }<br/>
+                    <br/>
+                    for(int pixelColor : hist) {<br/>
+                    outputWriter.println(pixelColor);<br/>
+                    }<br/>
+                    outputWriter.flush();<br/>
+                    outputWriter.close();<br/>
+                </code>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Kontrast (0.2)</p>
+                    <img src="pics/natur_Y_output+0,2.bmp" alt="Naturbild 0.2 Kontrast">
+                </div>
+                <div>
+                    <p class="title">Kontrast (0.4)</p>
+                    <img src="pics/natur_Y_output+0,4.bmp" alt="Naturbild 0.4 Kontrast">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Kontrast (0.8)</p>
+                    <img src="pics/natur_Y_output+0,8.bmp" alt="Naturbild 0.8 Kontrast">
+                </div>
+                <div>
+                    <p class="title">Kontrast (1.0)</p>
+                    <img src="pics/natur_Y_output+1,0.bmp" alt="Naturbild 1.0 Kontrast">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Kontrast (1.5)</p>
+                    <img src="pics/natur_Y_output+1,5.bmp" alt="Naturbild 1.5 Kontrast">
+                </div>
+                <div>
+                    <p class="title">Kontrast (2.5)</p>
+                    <img src="pics/natur_Y_output+2,5.bmp" alt="Naturbild 2.5 Kontrast">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Kontrast (5.0)</p>
+                    <img src="pics/natur_Y_output+5,0.bmp" alt="Naturbild 5.0 Kontrast">
+                </div>
+                <div>
+                    <p class="title">Kontrast (10.0)</p>
+                    <img src="pics/natur_Y_output+10,0.bmp" alt="Naturbild 10.0 Kontrast">
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <p class="title">Erklärung zu Kontrast Histogrammen</p>
+            <p>Bei den Histogrammen der Helligkeitsänderungen kann man sehr gut erkennen, wie sich die Werte auf der x-Achse verschieben. Beim unterbelichteten, dunklen Bild sind offensichtlich sehr viele dunkle (vor allem schwarze) Pixel vorhanden und die sehr hellen Pixel fehlen durch die Verschiebung gänzlich. Beim hellen Bild ist genau das Gegenteil der Fall.
+                Bei den Kontrastveränderungen sehen die Histogramme und Bilder komplett anders aus. Je höher der Kontrast, desto stärker sind auch die Unterschiede in den Farbdarstellungen und die Pixel bewegen sich zum Maximum/Minimum der Darstellung. Das heißt hellere Pixel werden immer weißer und dunklere Pixel immer schwarzer. Das erkennt man auch sehr gut im Histogramm, anhand der beiden extrem herausstechenden Balken bei 0 und 255. Ein weiterer Effekt, der im Histogramm erst wirklich erkennbar wird ist, dass sich Farbcluster bilden, also die Anzahl der verschiedenen Farben abnimmt und sich in gleichmäßigen Abständen anordnen. Beim niedrigen Kontrast hingegen sammeln sich die Farben im mittleren Bereich um die 128 an. Dadurch wird das Bild sehr gräulich, was auch das Histogramm belegt.</p>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Histogramm Kontrast (10)</p>
+                    <img src="pics/UE4-high-contrast-Histogramm.png" alt="Histogramm Kontrast 10">
+                </div>
+                <div>
+                    <p class="title">Histogramm Kontrast (0.2)</p>
+                    <img src="pics/UE4-low-contrast-Histogramm.png" alt="Histogramm Kontrast 10">
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex-block table">
+                <div>
+                    <p>Bei einer Kontraständerung k < 0 wird das Original Bild zu einem Negativbild konvertiert.<br/>Das heißt die Originalfarben werden invertiert.</p>
+                </div>
+                <div>
+                    <p class="title">-1.0 Kontrastbild</p>
+                    <img src="pics/natur_Y_output-1,0.bmp" alt="Naturbild -1.0 Kontrast">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
