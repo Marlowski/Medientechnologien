@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Marlon Kerth">
+    <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/jby6hqc.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script/script.js"></script>
+    <title>Medientechnologien WiSe 21/22</title>
+</head>
+
+<body class="content">
+
+<iframe src="oben.html" width="800" height="120" name="IFrame3" id="IFrame3" scrolling="no" frameborder="0">
+    <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+        folgenden.</p>
+</iframe>
+
+<nav class="navbar">
+    <div>
+        <a href="#top">Anfang</a>
+        <a href="#af1">Aufgabe 1</a>
+        <a href="#af2">Aufgabe 2</a>
+        <a href="#af3">Aufgabe 3</a>
+    </div>
+    <div>
+        <p>Darkmode</p>
+        <label class="switch">
+            <input type="checkbox">
+            <span></span>
+        </label>
+    </div>
+</nav>
+<div class="content__task">
+    <h1 id="top">Übung 5</h1>
+    <div class="task-block">
+        <h3 id="af1" class="main-title">Aufgabe 1</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">Zunächst sollt ihr eure Musikdatei um die Verstärkung 3, 6 und 9dB verstärken. Dies
+                realisiert ihr durch Multiplikation der Abtastwerte mit dem linearen Verstärkungsfaktor F, den
+                ihr zunächst aus der Verstärkung in dB berechnen müsst.</p>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">3dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/UE5-Musik_3db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                </div>
+                <div>
+                    <p class="title">6dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/UE5-Musik_6db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                </div>
+                <div>
+                    <p class="title">9dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/UE5-Musik_9db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                </div>
+            </div>
+            <div class="code-container">
+                <code>
+                    // Aufgabe 1<br/>
+                    float dB = 12;<br/>
+                    float F = (float) Math.pow(10, dB / 20);<br/>
+                    <br/>
+                    for(int i = 0; i < samples; i++){<br/>
+                    &nbsp;float f_sound = readWavFile.sound[i];<br/>
+                    &nbsp;f_sound *= F;<br/>
+                    &nbsp;if(f_sound > Short.MAX_VALUE) {<br/>
+                    &nbsp;&nbsp;readWavFile.sound[i] = Short.MAX_VALUE;<br/>
+                    &nbsp;&nbsp;} else if (f_sound < Short.MIN_VALUE) {<br/>
+                    &nbsp;&nbsp;readWavFile.sound[i] = Short.MIN_VALUE;<br/>
+                    &nbsp;&nbsp;} else {<br/>
+                    &nbsp;&nbsp;readWavFile.sound[i] = (short) f_sound;<br/>
+                    &nbsp;}<br/>
+                    }<br/>
+                </code>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>b.)</h4>
+            <p class="desc">Bei welcher Verstärkung wird eine Verzerrung wahrnehmbar?</p>
+            <div class="flex-block table">
+                <div>
+                    <p>Ab 6dB Verstärkung kann man langsam ein zunehmend lauteres Hintergrundrauschen feststellen. Bei 9dB ist es schon recht deutlich zu hören, aber eine wirkliche Verzerrung ist noch kaum wahrzunehmen. Bei einer Verstärkung um 12dB ist gerade zum Ende hin eine Verzerrung feststellbar und bei einer Verstärkung um 15dB ist sie auf jeden Fall gut zu hören.</p>
+                </div>
+                <div>
+                    <p class="title">12dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/UE5-Musik_12db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                    <p class="title">15dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/UE5-Musik_15db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                </div>
+            </div>
+            <div>
+                <p class="title">Clipping bei 12dB nur am Ende leicht zu hören:</p>
+                <img class="standalone-img" src="pics/UE5-clipping-12db.png" alt="clipping-15dB">
+            </div>
+            <div>
+                <p class="title">Clipping bei 15dB deutlich erkennbar & hörbar:</p>
+                <img class="standalone-img" src="pics/UE5-clipping-15db.png" alt="clipping-15dB">
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>c.)</h4>
+            <p class="desc">Ihr sollt nun die 1kHz-Sinusschwingung um 6, 9 und 12 dB verstärken und den
+                resultierenden Klirrfaktor k berechnen. Der Klirrfaktor lässt sich aus dem Frequenzspektrum
+                berechnen.</p>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">Sinus 6dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/sine_1k_6db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                </div>
+                <div>
+                    <p class="title">Sinus 9dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/sine_1k_9db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                </div>
+                <div>
+                    <p class="title">Sinus 12dB Verstärkung</p>
+                    <audio controls>
+                        <source src="./audio/sine_1k_12db_verstaerkt.wav" type="audio/wav">
+                    </audio>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <p class="title">1kHz Sinus unverstärkt:</p>
+            <p>Beim Originalton gibt es keine weiteren Obertöne. Die Frequenz des Grundtons liegt logischerweise bei 1000Hz und die maximale Amplitude liegt bei 81,3dB.
+                Ohne weitere Obertöne gibt es auch kein Klirren, also ist der Klirrfaktor k = 0.</p>
+            <div class="spacer"></div>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">Klirrfaktor 6dB Verstärkung</p>
+                    <p>Bei einer Verstärkung von 6dB treten ebenfalls keine Obertöne auf. Die Frequenz des Grundtons liegt weiterhin bei 1000Hz. Die maximale Amplitude hingegen ist durch der Verstärkung gestiegen und beträgt nun 87,3dB. Der Klirrfaktor ist k = 0.</p>
+                </div>
+                <div>
+                    <p class="title">Klirrfaktor 9dB Verstärkung</p>
+                    <p>Auch bei einer Verstärkung von 9dB kommen keine sichtbaren Obertöne hinzu. Der Grundton bleibt gleich, wird aber lauter. Die maximale Amplitude liegt jetzt bei 90,3dB. Der Klirrfaktor ist k = 0.</p>
+                </div>
+                <div>
+                    <p class="title">Klirrfaktor 12dB Verstärkung</p>
+                    <p>Bei der Verstärkung um 12dB kommt erstmals sichtbar ein Oberton hinzu. Da unsere Datei allerdings nur auf 8000Hz gesampled ist, werden uns auch nur 4000Hz Bandbreite angezeigt. Aus diesem Grund sehen wir nur einen einzigen Oberton bei 3000Hz. Bei einer höher gesampleten Datei gäbe es sicherlich noch mehr Obertöne (alle 2000Hz).
+                        Die maximale Amplitude liegt bei 91,8dB.<br/>
+                        Dass wir erst bei einer Verstärkung von 12dB einen Oberton bekommen, sprich das Clipping einsetzt, liegt vermutlich daran, dass unsere Audio Datei im Original ziemlich leise ist.</p>
+                    <br/>
+                    <p class="title">Teiltöne:</p>
+                    <p>Grundton: 1000Hz 91,8dB</p>
+                    <p>1.Oberton: 3000Hz 69,7dB</p>
+                    <br/>
+                    <p class="title">Differenz:</p>
+                    <p>A1 - A1 = 91,8dB - 91,8dB = 0dB</p>
+                    <p>A3 - A1 = 69,7dB - 91,8dB = -22,1dB</p>
+                    <p class="title">Umrechnung:</p>
+                    <p>Grundton: 10^(0 / 20) = 1</p>
+                    <p>1. Oberton: 10^(-22,1 / 20) = 0,0785</p>
+                    <br/>
+                    <p class="title">Klirrfaktor:</p>
+                    <p>k = sqrt(A3^2 / (A1^2 + A3^2))</p>
+                    <p>k = sqrt(0,0785^2 / (1^2 +  0,0785^2)) = 0,0785</p>
+                </div>
+            </div>
+            <div class="spacer"></div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">1khz Sinus unverstärkt, Spektrum</p>
+                    <img src="pics/1khz_Sinus_unverstaerkt.png" alt="1khz Sinus unverstaerkt">
+                </div>
+                <div>
+                    <p class="title">1khz Sinus 6dB verstärkt, Spektrum</p>
+                    <img src="pics/1khz_Sinus_6db_verstaerkt.png" alt="6khz Sinus verstaerkt">
+                </div>
+            </div>
+            <div class="flex-block">
+                <div>
+                    <p class="title">1khz Sinus 9dB verstärkt, Spektrum</p>
+                    <img src="pics/1khz_Sinus_9db_verstaerkt.png" alt="9khz Sinus verstaerkt">
+                </div>
+                <div>
+                    <p class="title">1khz Sinus 12dB verstärkt, Spektrum</p>
+                    <img src="pics/1khz_Sinus_12db_verstaerkt.png" alt="12khz Sinus verstaerkt">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af2" class="main-title">Aufgabe 2</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">Implementiert ein Echo mit einer Verzögerung von 10, 100 und 200ms und dem
+                Verstärkungsfaktor a = 0.6. Um wie viele Abtastwerte N müssen wir verzögern, wenn wir mit
+                einer Abtastrate von 44.1 kHz arbeiten?</p>
+            <div class="spacer"></div>
+            <div>
+                <p>N wird berechnet aus <b>N = Δt * fa</b></p>
+                <p>Δt ist standardmäßig 10ms und fa sind, wie in der Aufgabenstellung vorgegeben, 44.1 KHz.</p>
+                <p>N ist somit <b>N = 0.01s * 44100 = 441</b></p>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>b.)</h4>
+            <p class="desc">Wendet das Echo auf eure Sprach- und Musiksignal an. Es kann sein, dass die 10ms nur bei
+                einem recht trockenen Soundfile wie der Sprachaufnahme hörbar werden.
+                Hinweis: Bei Stereodateien muss berücksichtigt werden, dass linker und rechter Kanal getrennt
+                verzögert werden müssen. Die Samples für links und rechts liegen im Samplearray jeweils
+                hintereinander.</p>
+            <div class="flex-block table">
+                <div>
+                    <p class="title">Echo Berechnung (Mono) inkl. Berechnung für das Echo am Ende der Tonspur</p>
+                    <div class="code-container">
+                        <code>
+                            double a = 0.6f;<br/>
+                            double deltaT = 10;<br/>
+                            int n = (int) ((deltaT / 1000) * sampleRate);<br/>
+                            <br/>
+                            short[] y = new short[samples + n];<br/>
+                            for(int i = 0; i < samples; i++) {<br/>
+                            &nbsp;if (i >= n) {<br/>
+                            &nbsp;&nbsp;y[i] = (short) (0.5 * readWavFile.sound[i] + 0.5 * (a * readWavFile.sound[i-n]));<br/>
+                            &nbsp;} else {<br/>
+                            &nbsp;&nbsp;y[i] = readWavFile.sound[i];<br/>
+                            &nbsp;}<br/>
+                            }<br/>
+                            <br/>
+                            for(int i = samples; i < samples + n; i++) {<br/>
+                            &nbsp;assert readWavFile != null;<br/>
+                            &nbsp;y[i] = (short) (0.5 * (a * readWavFile.sound[i-n]));<br/>
+                            }<br/>
+                            <br/>
+                            numFrames += n;<br/>
+                        </code>
+                    </div>
+                    <div class="spacer"></div>
+                    <p class="title">Echo Berechnung (Stereo) inkl. Berechnung für das Echo am Ende der Tonspur</p>
+                    <div class="code-container">
+                        <code>
+                            double a = 0.6f;<br/>
+                            double deltaT = 1000;<br/>
+                            int n = (int) ((deltaT / 1000) * sampleRate) * 2;<br/>
+                            <br/>
+                            short[] y = new short[samples + n];<br/>
+                            for(int i = 0; i < samples; i++) {<br/>
+                            &nbsp;if (i >= n) {<br/>
+                            &nbsp; &nbsp;y[i] = (short) (0.5 * readWavFile.sound[i] + 0.5 * (a * readWavFile.sound[i-n]));<br/>
+                            &nbsp;} else {<br/>
+                            &nbsp; &nbsp;y[i] = readWavFile.sound[i];<br/>
+                            &nbsp;}<br/>
+                            }<br/>
+                            <br/>
+                            for(int i = samples; i < samples + n; i++) {<br/>
+                            &nbsp;assert readWavFile != null;<br/>
+                            &nbsp;y[i] = (short) (0.5 * (a * readWavFile.sound[i-n]));<br/>
+                            }<br/>
+                            <br/>
+                            numFrames += n / 2;<br/>
+                        </code>
+                    </div>
+                </div>
+                <div>
+                    <p>Damit das Echo auch noch weiter ausklingt, nachdem das originale Sample schon durchgelaufen ist, haben wir eine zweite for-Schleife eingebaut. Diese beginnt beim Ende des Samples und fügt einfach nur noch die errechneten Echo Samples in das neue Array ein.
+                        Natürlich muss auch die Anzahl der Frames für die WavFile.write_wav() Methode angepasst werden, damit die neue Sounddatei auch länger wird und man das restliche Echo auch hört. Das funktioniert durch die Rechnung: numFrames += 2;
+                        Für Stereo Dateien muss N verdoppelt werden, da die Samples für Rechts und Links immer abwechselnd im Array liegen. Das N darf aber nicht in verdoppelter Größe auf die numFrames hinzuaddiert werden (sondern nur in normaler Größe wie bei Mono Dateien), da die write_wav() Methode die Anzahl der Kanäle selbst berücksichtigt. Sonst bekommt man eine ArrayIndexOutOfBoundsException.</p>
+                    <div class="spacer"></div>
+                    <p class="title">Sprache 10ms Echo</p>
+                    <audio controls>
+                        <source src="./audio/Sprache_10ms_echo.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p class="title">Sprache 100ms Echo</p>
+                    <audio controls>
+                        <source src="./audio/Sprache_100ms_echo.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p class="title">Sprache 200ms Echo</p>
+                    <audio controls>
+                        <source src="./audio/Sprache_200ms_echo.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer" style="height: 75px;"></div>
+                    <p class="title">Musik 10ms Echo</p>
+                    <audio controls>
+                        <source src="./audio/Musik_10ms_echo.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p class="title">Musik 100ms Echo</p>
+                    <audio controls>
+                        <source src="./audio/Musik_100ms_echo.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p class="title">Musik 200ms Echo</p>
+                    <audio controls>
+                        <source src="./audio/Musik_200ms_echo.wav" type="audio/wav">
+                    </audio>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af3" class="main-title">Aufgabe 3</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">Programmiert das Filter und vergleicht die Musikdatei vor und nach der Filterung.
+                Tut dasselbe mit der Zuordnungsvorschrift</p>
+            <div class="flex-block">
+                <div>
+                    <div class="code-container">
+                        <code>
+                            // Aufgabe 3a)<br/>
+                            // Filter Parameter<br/>
+                           double a1 = 0.5;<br/>
+                            double a2 = 0.45;<br/>
+                            // sprachdatei ist mono<br/>
+                            int monoN = 1;<br/>
+                            // musikdatei ist stereo<br/>
+                            int stereoN = 2;<br/>
+                            <br/>
+                            short[] y = new short[samples];<br/>
+                            // Additionsfilter (Tiefpassfilter)<br/>
+                            for(int i = 0; i < samples; i++) {<br/>
+                            &nbsp;if (i >= monoN) {<br/>
+                            &nbsp; &nbsp;y[i] = (short) (a1 * readWavFile.sound[i] + a2 * readWavFile.sound[i - monoN]);<br/>
+                            &nbsp;} else {<br/>
+                            &nbsp; &nbsp;y[i] = readWavFile.sound[i];<br/>
+                            &nbsp;}<br/>
+                            }<br/>
+                            <br/>
+                            // Differenzfilter (Hochpassfilter)<br/>
+                            for(int i = 0; i < samples; i++) {<br/>
+                            &nbsp;if (i >= monoN) {<br/>
+                            &nbsp; &nbsp;y[i] = (short) (a1 * readWavFile.sound[i] - a2 * readWavFile.sound[i - monoN]);<br/>
+                            &nbsp;} else {<br/>
+                            &nbsp; &nbsp;y[i] = readWavFile.sound[i];<br/>
+                            &nbsp;}<br/>
+                            }<br/>
+                        </code>
+                    </div>
+                </div>
+                <div>
+                    <p class="title">Musik Original</p>
+                    <audio controls>
+                        <source src="./audio/UE5_Musik_orig.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p class="title">Musik Additionsfilter (Tiefpassfilter)</p>
+                    <audio controls>
+                        <source src="./audio/UE5_Musik_Tiefpassfilter.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p class="title">Musik Differenzfilter (Hochpassfilter)</p>
+                    <audio controls>
+                        <source src="./audio/UE5_Musik_Hochpassfilter.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer">
+                        <p>Wir finden persönlich, dass nach der Tiefpassfilterung nahezu kein Unterschied hörbar ist, was vermutlich auch daran liegen kann, dass die Musikdatei schon im Original eher dumpfere Frequenzen enthält. Nach der Hochpassfilterung hingegen, ist ein sehr deutlicher Unterschied wahrnehmbar. Die gefilterte Datei klingt deutlich leiser und auch "zarter" bzw. höher, da eben die tieferen, kräftigeren Frequenzen fehlen.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>b.)</h4>
+            <p class="desc">Zum Testen der Filter verwendet Weißes Rauschen, das alle Frequenzen enthält. Wenn wir
+                nun den Frequenzverlauf des Originalaudios mit dem gefilterten vergleichen, muss sich ein
+                Verlauf wie in der unteren Darstellung ergeben. Um eine Glättung des Spektrums zu erzielen, bei
+                GRAM 'Spectrum Average' auf 100 setzen. Um was für eine Art Filter handelt es sich jeweils?</p>
+            <div class="flex-block triple">
+                <div>
+                    <p class="title">Weißes Rauschen Original</p>
+                    <audio controls>
+                        <source src="./audio/rauschen.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p style="min-height: 120px;">Wie man auf dem Bild erkennen kann, sind alle Frequenzen, von knapp über 0 bis ca. 40kHz, mehr oder weniger gleichmäßig vorhanden.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE5-rauschen-orig.png" alt="Rauschen Original">
+                </div>
+                <div>
+                    <p class="title">Weißes Rauschen Additionsfilter (Tiefpassfilter)</p>
+                    <audio controls>
+                        <source src="./audio/rauschen_Tiefpassfilter.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p style="min-height: 120px;">Dass der Filter funktioniert, sieht man sehr gut. Die tieferen Frequenzen von 0 - ca. 9kHz sind komplett rausgefiltert. Ab 9kHz steigt die Frequenzkurve dann an und demnach sind die Frequenzen bis 40kHz hörbar.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE5-rauschen-tiefpass.jpg" alt="Rauschen Tiefpass">
+                </div>
+                <div>
+                    <p class="title">Weißes Rauschen Differenzfilter (Hochpassfilter)</p>
+                    <audio controls>
+                        <source src="./audio/rauschen_Hochpassfilter.wav" type="audio/wav">
+                    </audio>
+                    <div class="spacer"></div>
+                    <p style="min-height: 120px;">Auch dieser Filter funktioniert einwandfrei, wie man unschwer erkennen kann. Die Frequenzen bis ca. 31kHz kommen durch (mit abfallender Intensität ab ungefähr 12kHz) und alle Frequenzen über 31kHz sind komplett herausgefiltert.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE5-rauschen-hochpass.jpg" alt="Rauschen Hochpass">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -226,6 +226,7 @@ nav.navbar a:hover {
 }
 .content__task .flex-block.triple > div {
   flex: 1 1 10em;
+  padding: 0 5px;
 }
 .content__task .flex-block.triple > div img {
   max-width: 30vw;

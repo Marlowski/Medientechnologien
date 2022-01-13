@@ -173,6 +173,7 @@ nav.navbar {
     &.triple {
       & > div {
         flex: 1 1 10em;
+        padding: 0 5px;
 
         img {
           max-width: 30vw;
