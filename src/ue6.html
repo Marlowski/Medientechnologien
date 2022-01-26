@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Marlon Kerth">
+    <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
+    <link href="style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/jby6hqc.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script/script.js"></script>
+    <title>Medientechnologien WiSe 21/22</title>
+</head>
+
+<body class="content">
+
+<iframe src="oben.html" width="800" height="120" name="IFrame3" id="IFrame3" scrolling="no" frameborder="0">
+    <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+        folgenden.</p>
+</iframe>
+
+<nav class="navbar">
+    <div>
+        <a href="#top">Anfang</a>
+        <a href="#af1">Aufgabe 1</a>
+        <a href="#af2">Aufgabe 2</a>
+        <a href="#af3">Aufgabe 3</a>
+        <a href="#af4">Aufgabe 4</a>
+    </div>
+    <div>
+        <p>Darkmode</p>
+        <label class="switch">
+            <input type="checkbox">
+            <span></span>
+        </label>
+    </div>
+</nav>
+<div class="content__task">
+    <h1 id="top">Übung 6</h1>
+    <div class="task-block">
+        <h3 id="af1" class="main-title">Aufgabe 1</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">Erweitere bmp_io so, dass ein Filter mit einem Kernel von 3x3 Pixeln angewandt werden kann.
+                Beim Mittelwertfilter wird ein Zielpixel aus dem Mittelwert aller Pixel im Kernel im Originalbild
+                berechnet. Beschreibe die Wirkung des Filters auf deine Bilder!</p>
+            <div class="flex-block table">
+                <div>
+                    <p>Die Bilder werden leicht unscharf. Das birgt den Vorteil, dass das Rauschen oder kleine Unebenheiten im Bild verschwinden.
+                        Recht deutlich zu erkennen ist das im Klavierbild. Dort fallen kleine Unebenheiten im Bild weg und lassen die gefilterte Kopie deutlich sauberer erscheinen.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/Ue6_natur_filter_3x3.bmp" alt="Naturbild Tiefpassfilter">
+                    <div class="spacer"></div>
+                    <img src="pics/UE6_klavier_filter_3x3.bmp" alt="Klavierbild Tiefpassfilter">
+                </div>
+                <div class="code-container">
+                    <code>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // Übung 6 - Aufgabe 1 - Mittelwertfilter (Tiefpass)<br/>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // create empty copy of image to avoid calculating with before calculated values<br/>
+                        PixelColor[][] newImg = new PixelColor[bmp.image.getHeight()][bmp.image.getWidth()];<br/>
+                        for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp;for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;int[][] kernel = new int[3][3];<br/>
+                        &nbsp;&nbsp;// check if the pixel is an edge pixel -> special handling<br/>
+                        &nbsp;&nbsp;if (isEdgePx(x, y, bmp)) {<br/>
+                        &nbsp;&nbsp;newImg[y][x] = new PixelColor(140, 140, 140);<br/>
+                        &nbsp;&nbsp;} else {<br/>
+                        &nbsp;&nbsp;for (int yk = -1; yk < 2; yk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;for (int xk = -1; xk < 2; xk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;kernel[yk + 1][xk + 1] = bmp.image.getRgbPixel(x + xk, y + yk).r;<br/>
+                        &nbsp;&nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;// calc midvalue<br/>
+                        &nbsp;&nbsp;int midVal = 0;<br/>
+                        &nbsp;&nbsp;for (int[] arr : kernel) {<br/>
+                        &nbsp;&nbsp;&nbsp;for (int val : arr) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal += val;<br/>
+                        &nbsp;&nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;midVal = midVal / 9;<br/>
+                        &nbsp;&nbsp;// set the midValue to the empty copy<br/>
+                        &nbsp;&nbsp;newImg[y][x] = new PixelColor(midVal, midVal, midVal);<br/>
+                        &nbsp;&nbsp;}<br/>
+                        &nbsp;}<br/>
+                        }<br/>
+                        // set values from the copy back to the original<br/>
+                        for(int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp;&nbsp;for(int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;&nbsp;bmp.image.setRgbPixel(x, y, newImg[y][x]);<br/>
+                        &nbsp;&nbsp;}<br/>
+                        }<br/>
+                        <br/>
+                        static boolean isEdgePx(int x, int y, BmpImage bmp) {<br/>
+                        &nbsp;if (x == 0 || x == bmp.image.getWidth() - 1) {<br/>
+                        &nbsp;&nbsp;return true;<br/>
+                        &nbsp;}<br/>
+                        &nbsp;if (y == 0 || y == bmp.image.getHeight() - 1) {<br/>
+                        &nbsp;&nbsp;return true;<br/>
+                        &nbsp;}<br/>
+                        &nbsp;return false;<br/>
+                        }<br/>
+                    </code>
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>b.)</h4>
+            <p class="desc">Wie verfährt man bei der Berechnung des Filters mit den Randpixeln?</p>
+            <p>Es gibt mehrere Möglichkeiten mit Randpixeln umzugehen. Wir haben uns dafür entschieden am Rand einfach feste Werte für die Pixel zu setzen.
+                Wenn man Randpixel nicht speziell handelt, dann wird man Exceptions bekommen, weil auf Werte außerhalb des Bildes zugegriffen werden würde.</p>
+        </div>
+        <div class="task-block__single">
+            <h4>c.)</h4>
+            <p class="desc">Erweitere bmp_io so, dass das Differenzbild zwischen dem gefilterten und dem Originalbild
+                berechnet werden kann (analog zu Übung 2, Aufgabenpunkt 3.3)! Dieses muss offensichtlich die
+                Information zeigen, die das Filter entfernt hat. Beachte dabei, dass du das Differenzbild
+                möglicherweise im Kontrast verstärken musst.</p>
+            <div class="flex-block table">
+                <div class="code-container">
+                    <code>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // Übung 6 - Aufgabe 1c - Mittelwertfilter (Tiefpass)<br/>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // create empty copy of image to avoid calculating with before calculated values<br/>
+                        PixelColor[][] newImg = new PixelColor[bmp.image.getHeight()][bmp.image.getWidth()];<br/>
+                        for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp;for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;int[][] kernel = new int[3][3];<br/>
+                        &nbsp;&nbsp;// check if the pixel is an edge pixel -> special handling<br/>
+                        &nbsp;&nbsp;if (isEdgePx(x, y, bmp)) {<br/>
+                        &nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(140, 140, 140);<br/>
+                        &nbsp;&nbsp;} else {<br/>
+                        &nbsp;&nbsp;&nbsp;for (int yk = -1; yk < 2; yk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;for (int xk = -1; xk < 2; xk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;kernel[yk + 1][xk + 1] = bmp.image.getRgbPixel(x + xk, y + yk).r;<br/>
+                        &nbsp; &nbsp;&nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;&nbsp;}<br/>
+                        // calc midvalue<br/>
+                        &nbsp;&nbsp;&nbsp;int midVal = 0;<br/>
+                        &nbsp;&nbsp;&nbsp;for (int[] arr : kernel) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;for (int val : arr) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;midVal += val;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;&nbsp;midVal = midVal / 9;<br/>
+                        &nbsp;&nbsp;&nbsp;// set the midValue to the empty copy<br/>
+                        &nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(midVal, midVal, midVal);<br/>
+                        &nbsp;&nbsp;}<br/>
+                        &nbsp;}<br/>
+                        }<br/>
+                        <br/>
+                        // set values from the copy back to the original<br/>
+                        for(int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp;for(int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;double copyColor = newImg[y][x].r;<br/>
+                        &nbsp;&nbsp;double origColor = bmp.image.getRgbPixel(x, y).r;<br/>
+                        &nbsp;&nbsp;int diff = (int) (origColor - copyColor + 128);<br/>
+                        &nbsp;&nbsp;bmp.image.setRgbPixel(x, y, new PixelColor(diff, diff, diff));<br/>
+                        &nbsp;}<br/>
+                        }<br/>
+                        double k = 3.0;<br/>
+                        for(int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp;for(int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;double pxVal = bmp.image.getRgbPixel(x, y).r;<br/>
+                        &nbsp;&nbsp;pxVal = k * (pxVal - 128) + 128;<br/>
+                        <br/>
+                        &nbsp;&nbsp;if(pxVal < 0) pxVal = 0;<br/>
+                        &nbsp;&nbsp;else if(pxVal > 255) pxVal = 255;<br/>
+                        <br/>
+                        &nbsp;&nbsp;bmp.image.setRgbPixel(x, y, new PixelColor((int) pxVal, (int) pxVal, (int) pxVal));<br/>
+                        &nbsp;}<br/>
+                        }<br/>
+                        <br/>
+                        //isEdgePx func siehe 1a)<br/>
+                    </code>
+                </div>
+                <div>
+                    <img src="pics/UE6_natur_filter_3x3_diff.bmp" alt="Differenzbild Natur">
+                    <div class="spacer"></div>
+                    <img src="pics/UE6_klavier_filter_3x3_diff.bmp" alt="Differenzbild Klavier">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af2" class="main-title">Aufgabe 2</h3>
+        <div class="task-block__single">
+            <h4>a.)</h4>
+            <p class="desc">Wende nun den folgenden 3*3 Kernel auf deine Bilder an! Beachte dabei, dass bei der direkten
+                Anwendung der Vorschrift Werte > 255 entstehen können. Durch welchen Wert muss also die
+                Intensität des Zielpixels geteilt werden, damit man wieder in den erlaubten Bereich 0...255 kommt?
+                Beschreibe die Wirkung des Filters auf deine Bilder!</p>
+            <div class="flex-block">
+                <div>
+                    <p>Wir müssen die Werte jeweils durch 4 teilen. Diesen Divisor erhalten wir aus der Addition der Werte in der Matrix.</p>
+                    <p><b>Explizit: -2 + (-2) + 12 + (-2) + (-2) = 4</b></p>
+                    <div class="spacer"></div>
+                    <p>Anders als beim Tiefpassfilter entsteht hier keine unschärfe, sondern genau das Gegenteil. Das Bild wird schärfer.</p>
+                    <div class="spacer"></div>
+                    <img src="pics/UE6-natur_filter_3x3_weighted.bmp" alt="Qwispi Natur">
+                    <div class="spacer"></div>
+                    <img src="pics/UE6-klavier_filter_3x3_weighted.bmp" alt="Qwsipi Klavier">
+                </div>
+                <div class="code-container">
+                    <code>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // Übung 6 - Aufgabe 2a - Gradientenfilter<br/>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // create empty copy of image to avoid calculating with before calculated values<br/>
+                        PixelColor[][] newImg = new PixelColor[bmp.image.getHeight()][bmp.image.getWidth()];<br/>
+                        for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;  int[][] kernel = new int[3][3];<br/>
+                        &nbsp;&nbsp;  // check if the pixel is an edge pixel -> special handling<br/>
+                        &nbsp;&nbsp;  if (isEdgePx(x, y, bmp)) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(140, 140, 140);<br/>
+                        &nbsp;&nbsp;  } else {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;for (int yk = -1; yk < 2; yk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int xk = -1; xk < 2; xk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  kernel[yk + 1][xk + 1] = bmp.image.getRgbPixel(x + xk, y + yk).r;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// calc midvalue<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;int midVal = 0;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[0][1] * -2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[1][0] * -2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[1][1] * 12;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[1][2] * -2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[2][1] * -2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// 4 = 12 + -2 + -2 + -2 + -2<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal = midVal / 4;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal = setInRange(midVal);<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// set the midValue to the empty copy<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(midVal, midVal, midVal);<br/>
+                        &nbsp;&nbsp;  }<br/>
+                        &nbsp; }<br/>
+                        }<br/>
+                        // set values from the copy back to the original<br/>
+                        for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;  bmp.image.setRgbPixel(x, y, newImg[y][x]);<br/>
+                        &nbsp; }<br/>
+                        }<br/>
+                        <br/>
+                        <br/>static int setInRange(int val) {<br/>
+                        &nbsp;&nbsp;  if (val < 0) return 0;<br/>
+                        &nbsp;&nbsp;  else if (val > 255) return 255;<br/>
+                        &nbsp;&nbsp;  return val;<br/>
+                        }<br/>
+                        <br/>
+                        //isEdgePx func siehe 1a)<br/>
+                    </code>
+                </div>
+            </div>
+        </div>
+        <div class="task-block__single">
+            <h4>b.)</h4>
+            <p class="desc">Berechne wiederum das Differenzbild zwischen dem gefilterten und dem Originalbild! Beachte
+                dabei ebenfalls, dass du das Differenzbild möglicherweise im Kontrast verstärken musst.</p>
+            <div class="flex-block">
+                <div>
+                    <img src="pics/UE6-klavier_filter_3x3_weighted_diff.bmp" alt="Klavier Differenz">
+                </div>
+                <div>
+                    <img src="pics/UE6-natur_filter_3x3_weighted_diff.bmp" alt="Natur Differenz">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af3" class="main-title">Aufgabe 3</h3>
+        <div class="task-block__single">
+            <p class="desc">Das Medianfilter reiht alle Pixelintensitäten im Filterkernel der Größe nach auf und gibt den
+                Intensitätswert aus, der an der mittleren Position steht. Es wird oft zur Beseitigung von Kratzern oder
+                punktförmigen Bildfehlern verwendet. Füge zunächst mit Paint deinem Flächenbild zehn „Fehler“
+                hinzu, wie es in dem folgenden Beispiel zu sehen ist. Benutze dazu einen weißen Stift mit der
+                Strichstärke 1 Pixel. Programmiere das Medianfilter für deine 3x3-Pixelmatrix und berechne das
+                Ergebnisbild.</p>
+            <div class="flex-block">
+                <div>
+                    <p class="title">Klavier mit Paint bearbeitet</p>
+                    <img src="pics/UE6-klavier_grau_paint_edit.bmp" alt="Klavier paint edit">
+                    <div class="spacer"></div>
+                    <p class="title">Natur mit Paint bearbeitet</p>
+                    <img src="pics/UE6-natur_grau_paint_edit.bmp" alt="Natur paint edit">
+                </div>
+                <div>
+                    <p class="title">Klavier mit Medianfilter</p>
+                    <img src="pics/UE6-klavier_medianfilter.bmp" alt="Klavier Medianfilter">
+                    <div class="spacer"></div>
+                    <p class="title">Natur mit Medianfilter</p>
+                    <img src="pics/UE6-natur_medianfilter.bmp" alt="Natur Medianfilter">
+                </div>
+            </div>
+            <div class="code-container">
+                <code>
+                    //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // Übung 6 - Aufgabe 3 - Medianfilter<br/>
+                    //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // create empty copy of image to avoid calculating with before calculated values<br/>
+                    PixelColor[][] newImg = new PixelColor[bmp.image.getHeight()][bmp.image.getWidth()];<br/>
+                    for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    &nbsp; &nbsp; int[][] kernel = new int[3][3];<br/>
+                    &nbsp; &nbsp; // check if the pixel is an edge pixel -> special handling<br/>
+                    &nbsp; &nbsp; if (isEdgePx(x, y, bmp)) {<br/>
+                    &nbsp; &nbsp;&nbsp;  newImg[y][x] = new PixelColor(140, 140, 140);<br/>
+                    &nbsp; &nbsp; } else {<br/>
+                    &nbsp; &nbsp;&nbsp;  for (int yk = -1; yk < 2; yk++) {<br/>
+                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;for (int xk = -1; xk < 2; xk++) {<br/>
+                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; kernel[yk + 1][xk + 1] = bmp.image.getRgbPixel(x + xk, y + yk).r;<br/>
+                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    &nbsp; &nbsp;&nbsp;  }<br/>
+                    &nbsp; &nbsp;&nbsp;  // calc median value<br/>
+                    &nbsp; &nbsp;&nbsp;  ArrayList	&lt;Integer> medArr = new ArrayList<>();<br/>
+                    &nbsp; &nbsp;&nbsp;  // add values from kernel to list to sort them<br/>
+                    &nbsp; &nbsp;&nbsp;  for(int[] arr : kernel) {<br/>
+                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;for(int v : arr) {<br/>
+                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; medArr.add(v);<br/>
+                    &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    &nbsp; &nbsp;&nbsp;  }<br/>
+                    &nbsp; &nbsp;&nbsp;  Collections.sort(medArr);<br/>
+                    &nbsp; &nbsp;&nbsp;  int medVal = medArr.get(medArr.size() / 2);<br/>
+                    &nbsp; &nbsp;&nbsp;  // set the midValue to the empty copy<br/>
+                    &nbsp; &nbsp;&nbsp;  newImg[y][x] = new PixelColor(medVal, medVal, medVal);<br/>
+                    &nbsp; &nbsp; }<br/>
+                    &nbsp; }<br/>
+                    }<br/>
+                    // set values from the copy back to the original<br/>
+                    for(int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    &nbsp; for(int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    &nbsp; &nbsp; bmp.image.setRgbPixel(x, y, newImg[y][x]);<br/>
+                    &nbsp; }<br/>
+                    }<br/>
+                    <br/>
+                    //isEdgePx func siehe 1a)<br/>
+                </code>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="af4" class="main-title">Aufgabe 4</h3>
+        <div class="task-block__single">
+            <p class="desc">Das Sobel-Filter dient der Detektion von Kanten im Bild. Programmiere ein Sobel-Filter für die x- und
+                ein Sobel-Filter für die y-Richtung und wende sie auf deine Bilder an! Die Matrizen für das Sobel-
+                Filter finden sich im pdf zur Bildfilterung.</p>
+            <div class="flex-block">
+                <div>
+                    <p><b>Sobelfilter Klavier Horizontal</b></p>
+                    <img src="pics/UE6-klavier_sobel_h.bmp" alt="Klavier Sobel H">
+                    <div class="spacer"></div>
+                    <p><b>Sobelfilter Klavier Vertikal</b></p>
+                    <img src="pics/UE6-klavier_sobel_v.bmp" alt="Klavier Sobel V">
+                </div>
+                <div>
+                    <p><b>Sobelfilter Natur Horizontal</b></p>
+                    <img src="pics/UE6-natur_sobel_h.bmp" alt="Natur Sobel H">
+                    <div class="spacer"></div>
+                    <p><b>Sobelfilter Natur Vertikal</b></p>
+                    <img src="pics/UE6-natur_sobel_v.bmp" alt="Natur Sobel V">
+                </div>
+            </div>
+            <div class="code-container">
+                <code>
+                    //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // Übung 6 - Aufgabe 4 - Sobel-Filter - horizontal<br/>
+                    //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // create empty copy of image to avoid calculating with before calculated values<br/>
+                    PixelColor[][] newImg = new PixelColor[bmp.image.getHeight()][bmp.image.getWidth()];<br/>
+                    for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    &nbsp;&nbsp;  int[][] kernel = new int[3][3];<br/>
+                    &nbsp;&nbsp;  // check if the pixel is an edge pixel -> special handling<br/>
+                    &nbsp;&nbsp;  if (isEdgePx(x, y, bmp)) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(140, 140, 140);<br/>
+                    &nbsp;&nbsp;  } else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (int yk = -1; yk < 2; yk++) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int xk = -1; xk < 2; xk++) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  kernel[yk + 1][xk + 1] = bmp.image.getRgbPixel(x + xk, y + yk).r;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// calc midvalue<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int midVal = 0;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[0][0];<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[0][1] * 2;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[0][2];<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[2][0] * -1;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[2][1] * -2;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[2][2] * -1;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal = setInRange(midVal);<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// set the midValue to the empty copy<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(midVal, midVal, midVal);<br/>
+                    &nbsp;&nbsp;  }<br/>
+                    &nbsp; }<br/>
+                    }<br/>
+                    // set values from the copy back to the original<br/>
+                    for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    &nbsp;&nbsp;  bmp.image.setRgbPixel(x, y, newImg[y][x]);<br/>
+                    &nbsp; }<br/>
+                    }<br/>
+                    //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // Übung 6 - Aufgabe 4 - Sobel-Filter - vertikal<br/>
+                    //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                    // create empty copy of image to avoid calculating with before calculated values<br/>
+                    PixelColor[][] newImg = new PixelColor[bmp.image.getHeight()][bmp.image.getWidth()];<br/>
+                    for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    &nbsp;&nbsp;  int[][] kernel = new int[3][3];<br/>
+                    &nbsp;&nbsp;  // check if the pixel is an edge pixel -> special handling<br/>
+                    &nbsp;&nbsp;  if (isEdgePx(x, y, bmp)) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(140, 140, 140);<br/>
+                    &nbsp;&nbsp;  } else {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;for (int yk = -1; yk < 2; yk++) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int xk = -1; xk < 2; xk++) {<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  kernel[yk + 1][xk + 1] = bmp.image.getRgbPixel(x + xk, y + yk).r;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// calc midvalue<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;int midVal = 0;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[0][0];<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[0][2] * -1;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[1][0] * 2;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[1][2] * -2;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[2][0];<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal += kernel[2][2] * -1;<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;midVal = setInRange(midVal);<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;// set the midValue to the empty copy<br/>
+                    &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(midVal, midVal, midVal);<br/>
+                    &nbsp;&nbsp;  }<br/>
+                    &nbsp; }<br/>
+                    }<br/>
+                    // set values from the copy back to the original<br/>
+                    for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                    &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                    &nbsp;&nbsp;  bmp.image.setRgbPixel(x, y, newImg[y][x]);<br/>
+                    &nbsp; }<br/>
+                    }<br/>
+                    <br/>
+                    //setInRange func siehe 2a)<br/>
+                </code>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
