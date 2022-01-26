@@ -25,6 +25,7 @@
         <a href="#af2">Aufgabe 2</a>
         <a href="#af3">Aufgabe 3</a>
         <a href="#af4">Aufgabe 4</a>
+        <a href="#bonus">Bonus</a>
     </div>
     <div>
         <p>Darkmode</p>
@@ -440,6 +441,73 @@
                     <br/>
                     //setInRange func siehe 2a)<br/>
                 </code>
+            </div>
+        </div>
+    </div>
+    <div class="task-block">
+        <h3 id="bonus">Bonus</h3>
+        <div class="task-block__single">
+            <p class="desc">Wir hatten Spaß und haben für den Sobelfilter noch horizontal & vertikal kombiniert</p>
+            <div class="flex-block table">
+                <div>
+                    <img src="pics/UE-6-klavier_sobel_complete.bmp" alt="Klavier Sobelfilter komplett">
+                    <div class="spacer"></div>
+                    <img src="pics/UE6-natur_sobel_complete.bmp" alt="Natur Sobelfilter komplett">
+                </div>
+                <div class="code-container">
+                    <code>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // Übung 6 - Aufgabe 4 - Sobel-Filter - horizontal + verikal<br/>
+                        //++++++++++++++++++++++++++++++++++++++++++++++++++<br/>
+                        // create empty copy of image to avoid calculating with before calculated values<br/>
+                        PixelColor[][] newImg = new PixelColor[bmp.image.getHeight()][bmp.image.getWidth()];<br/>
+                        for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;  int[][] kernel = new int[3][3];<br/>
+                        &nbsp;&nbsp;  // check if the pixel is an edge pixel -> special handling<br/>
+                        &nbsp;&nbsp;  if (isEdgePx(x, y, bmp)) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(120, 120, 120);<br/>
+                        &nbsp;&nbsp;  } else {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;for (int yk = -1; yk < 2; yk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for (int xk = -1; xk < 2; xk++) {<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  kernel[yk + 1][xk + 1] = bmp.image.getRgbPixel(x + xk, y + yk).r;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br/>
+                        <br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// vertikal<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;int midVal1 = 0;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal1 += kernel[0][0];<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal1 += kernel[0][1] * 2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal1 += kernel[0][2];<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal1 += kernel[2][0] * -1;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal1 += kernel[2][1] * -2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal1 += kernel[2][2] * -1;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal1 = setInRange(midVal1);<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;// horizontal<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;int midVal2 = 0;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal2 += kernel[0][0];<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal2 += kernel[0][2] * -1;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal2 += kernel[1][0] * 2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal2 += kernel[1][2] * -2;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal2 += kernel[2][0];<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal2 += kernel[2][2] * -1;<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;midVal2 = setInRange(midVal2);<br/>
+
+                        <br/>&nbsp;&nbsp;&nbsp;&nbsp;int finalMidVal = (int) Math.sqrt((midVal1 * midVal1) + (midVal2 * midVal2));<br/>
+
+                        <br/>&nbsp;&nbsp;&nbsp;&nbsp;// set the midValue to the empty copy<br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;newImg[y][x] = new PixelColor(finalMidVal, finalMidVal, finalMidVal);<br/>
+                        &nbsp;&nbsp;  }<br/>
+                        &nbsp; }<br/>
+                        }<br/>
+                        // set values from the copy back to the original<br/>
+                        for (int y = 0; y < bmp.image.getHeight(); y++) {<br/>
+                        &nbsp; for (int x = 0; x < bmp.image.getWidth(); x++) {<br/>
+                        &nbsp;&nbsp;  bmp.image.setRgbPixel(x, y, newImg[y][x]);<br/>
+                        &nbsp; }<br/>
+                        }<br/>
+                    </code>
+                </div>
             </div>
         </div>
     </div>
